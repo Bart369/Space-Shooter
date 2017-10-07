@@ -1,0 +1,89 @@
+body{
+  background-color: black;
+}
+.container {
+  height: 700px;
+  width: 700px;
+  background-color: black;
+  margin: 50px auto;
+  color:  white;
+}
+
+.border {
+  height: 550px;
+  width: 600px;
+  background-image: url('Space.jpeg');
+  background-size: cover;
+  margin: 0 auto;
+  border: solid lightblue;
+}
+
+
+.score {
+ margin: 50px 0 0 0;
+ text-align: center;
+ padding: 0;
+ font-weight: bold;
+ color: lightblue;
+ font-size: 20px;
+}
+
+.livesP {
+  margin: 0 0 20px 100px;
+  padding: 0;
+  display: inline-block;
+  height: 30px;
+}
+
+.playerLives {
+  display: inline-block;
+  background-color: red;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  margin: 5px 0 0 5px;
+}
+
+.p1 {
+  padding: 0;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  color: lightblue;
+
+}
+
+.livesContainer {
+  margin: 5px 0 30px 5px;
+  display: inline-block;
+}
+
+.player {
+  height: 50px;
+  width: 50px;
+  background-color: red;
+  position: relative;
+  left: 275px;
+  top: 240px;
+}
+
+
+.enemyContainer {
+  margin: 50px auto;
+}
+
+.start {
+  color: white;
+}
+
+.enemy1{
+  height: 50px;
+  width: 50px;
+  background-color: lightgreen;
+  display: inline-block;
+  position: relative
+  left: 50%;
+  top: 0;
+}
+
+
+
