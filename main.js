@@ -1,12 +1,12 @@
 console.log('Game JS is working!')
+let border = document.querySelector('.border');
 let player = document.querySelector('.player');
 let enemy1 = document.querySelector('.enemy1');
 let enemy2 = document.querySelector('.enemy2');
 let enemy3 = document.querySelector('.enemy3');
 let start = document.querySelector('.start');
 let stop = document.querySelector('.stop');
-
-//Player Moves
+let laser = document.querySelector('.laser');
 
 let playerObj = {
   who: player,
@@ -18,49 +18,38 @@ let playerObj = {
 
 let enemy1Obj = {
   who: enemy1,
-  x: 0,
+  x: 500,
   y: 0,
   height: 25,
-  width: 25
+  width: 25,
+//  movement: enemy1Move()
 }
 
 let enemy2Obj = {
   who: enemy2,
-  x: 0,
+  x: 300,
   y: 0,
   height: 40,
   width: 40
+  //movement: enemy2Move()
 }
-
-
-//Enemy1 Moves
-let enemy1Left = 500;
-let enemy1Top = 0;
-let enemy1Counter = 0;
-let enemy1Switcher = Math.floor((Math.random() * 2) + 1);
-
-//Enemy2 Moves
-let enemy2Left = 300;
-let enemy2Top = 0;
-let enemy2Counter = 0;
-let enemy2Switcher = Math.floor((Math.random() * 3) + 1);
-
 
 
 
 let enemy1Move = function(){
-  enemy1Switcher++;
   let enemy1Counter = 0;
+  let enemy1Switcher = Math.floor((Math.random() * 2) + 1);
+  enemy1Switcher++;
   console.log('This is enemy1Switcher ' + enemy1Switcher);
   if (enemy1Switcher % 2 === 0){
     let moveEnemy1Right = setInterval(function(){
       console.log('Moving Right')
       enemy1Counter++;
-      enemy1Top += 1;
-      enemy1.style.top = enemy1Top + 'px';
-      enemy1Left += 3;
-      enemy1.style.left = enemy1Left + 'px';
-      if (enemy1Counter === 50){
+      enemy1Obj.y += 2;
+      enemy1.style.top = enemy1Obj.y + 'px';
+      enemy1Obj.x += 3;
+      enemy1.style.left = enemy1Obj.x + 'px';
+      if (enemy1Counter === 35){
         clearInterval(moveEnemy1Right);
         enemy1Move();
       }
@@ -70,11 +59,11 @@ let enemy1Move = function(){
     let moveEnemy1Left = setInterval(function(){
       enemy1Counter++;
       console.log('Moving Left')
-      enemy1Top += 1;
-      enemy1.style.top = enemy1Top + 'px';
-      enemy1Left -= 3;
-      enemy1.style.left = enemy1Left + 'px';
-      if (enemy1Counter === 50){
+      enemy1Obj.y += 2;
+      enemy1.style.top = enemy1Obj.y + 'px';
+      enemy1Obj.x -= 3;
+      enemy1.style.left = enemy1Obj.x + 'px';
+      if (enemy1Counter === 35){
         clearInterval(moveEnemy1Left);
         enemy1Move();
       }
@@ -82,53 +71,69 @@ let enemy1Move = function(){
   }
 }
 
-
 let enemy2Move = function(){
+  let enemy2Switcher = Math.floor((Math.random() * 3) + 1);
   enemy2Switcher += Math.floor((Math.random() * 3) + 1);
-  let enemy2Counter = 0;
   console.log('This is enemy2Switcher ' + enemy2Switcher);
   if (enemy2Switcher === 3){
     let moveEnemy2Right = setInterval(function(){
       console.log('Moving Right')
-      enemy2Counter++;
-      enemy2Top += 1;
-      enemy2.style.top = enemy2Top + 'px';
-      enemy2Left += 1;
-      enemy2.style.left = enemy2Left + 'px';
-    }
-  )};
+      enemy2Obj.y += 3;
+      enemy2.style.top = enemy2Obj.y + 'px';
+      enemy2Obj.x += 3;
+      enemy2.style.left = enemy2Obj.x + 'px';
+      collision();
+    }, 50)
+  }
   if (enemy2Switcher === 2){
     let moveEnemy2Left = setInterval(function(){
-      enemy2Counter++;
       console.log('Moving Left')
-      enemy2Top += 2;
-      enemy2.style.top = enemy2Top + 'px';
-      enemy2Left -= 1;
-      enemy2.style.left = enemy2Left + 'px';
-    })
+      enemy2Obj.y += 5;
+      enemy2.style.top = enemy2Obj.y + 'px';
+      enemy2Obj.x -= 3;
+      enemy2.style.left = enemy2Obj.x + 'px';
+      collision();
+    }, 50)
   }
   else {
     let moveEnemy2Down = setInterval(function(){
-      enemy2Counter++;
       console.log('Moving Down')
-      enemy2Top += 1;
-      enemy2.style.top = enemy2Top + 'px';
-    }
-  )};
+      enemy2Obj.y += 5;
+      enemy2.style.top = enemy2Obj.y + 'px';
+      collision();
+    }, 50)
+  };
 }
 
+
+//Player Moves
+
+
+
+let enemies = [enemy1Obj, enemy2Obj];
 /*
-let enemy = {
-  enemy1: {movement: enemy1Move()},
-  enemy2: {movement: enemy2Move()},
-  enemy3: enemy3
-}
+
+
+  }
+};
 */
+
+function collision(){
+  if (playerObj.x < enemy2Obj.x + enemy2Obj.width &&
+   playerObj.x + playerObj.width > enemy2Obj.x &&
+   playerObj.y < enemy2Obj.y + enemy2Obj.height &&
+   playerObj.height + playerObj.y > enemy2Obj.y) {
+    console.log('collission holy shittttttttt');
+  }
+    // collision detected!
+};
+
+
 
 
 start.addEventListener('click', enemy2Move);
 
-
+//For the player mostly
 let boundaries = function(obj){
   if (obj.x < 0){
     obj.x = 0;
@@ -147,61 +152,74 @@ let boundaries = function(obj){
     obj.who.style.top = obj.y + 'px';
   }
 };
-/*
 
-let playerBoundaries = function(){
-  if (playerObj.x < 15){
-    playerObj.x = 0;
-    player.style.left = playerObj.x + 'px';
-  }
-  if (playerObj.y < 20){
-    playerObj.y = 0;
-    player.style.top = playerObj.y + 'px';
-  }
-  if (playerObj.x  + 40 > 600){
-    playerObj.x = 560;
-    player.style.left = playerObj.x + 'px';
+let laserObj = {
+    who: laser,
+    height: 20,
+    width: 5,
+    x: playerObj.x + 18,
+    y: playerObj.y - 20 - playerObj.height
+};
 
-  }
-  if (playerObj.y + 40 > 550){
-    playerObj.y = 510;
-    player.style.top = playerObj.y + 'px';
+
+const lasers = function(){
+  laser = document.createElement('div');
+  laser.setAttribute('class', 'laser');
+  border.appendChild(laser);
+  laser.style.left = laserObj.x + 'px'; //This is so it shoots from the middle of player taking in to account the width of the laser
+  laser.style.top = laserObj.y + 'px'; // This is so it shoots above player height and you also have to minus the length of the laser
+  const laserShootUp = setInterval(function(){
+    laserObj.y -= 8;
+    laser.style.top = laserObj.y + 'px';
+  }, 50)
+  if (laser.style.top < -20){
+    console.log('laser above');
+    laser.remove();
   }
 }
-*/
+
 
 //MOVING THE PLAYER
 window.addEventListener('keydown', function(event){
   console.log(event.keyCode);
 
+//Lasers PEW PEW
+if (event.keyCode === 32){
+  lasers();
+}
+
 //MOVING RIGHT
 if (event.keyCode === 39){
   playerObj.x += 20;
   player.style.left = playerObj.x + 'px';
+  laserObj.x += 20; //As the player moves, the origin of the laser changes with it.
 }
 
 //MOVING LEFT
 if (event.keyCode === 37){
   playerObj.x -= 20;
   player.style.left = playerObj.x + 'px';
+  laserObj.x -= 20;
 }
 
 //MOVING Down
 if (event.keyCode === 40){
   playerObj.y += 20;
   player.style.top = playerObj.y + 'px';
+  laserObj.y += 20;
 }
 
 //MOVING Up
 if (event.keyCode === 38){
   playerObj.y -= 20;
   player.style.top = playerObj.y + 'px';
+  laserObj.y -= 20;
 }
-boundaries(playerObj);
+//boundaries(playerObj);
 
 });
 
 
 
-
+collision();
 
