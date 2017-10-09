@@ -2,11 +2,13 @@ body{
   background-color: black;
 }
 .container {
-  height: 700px;
+  height: 750px;
   width: 700px;
   background-color: black;
-  margin: 50px auto;
+  margin: 0px auto;
   color:  white;
+  position: relative;
+  border: solid white;
 }
 
 .border {
@@ -15,12 +17,19 @@ body{
   background-image: url('Space.jpeg');
   background-size: cover;
   margin: 0 auto;
-  border: solid lightblue;
+  border: solid blue;
+}
+
+.enemyContainer {
+  height: 725px;
+  width: 700px;
+  margin: 0 auto;
+  border: solid green;
 }
 
 
 .score {
- margin: 50px 0 0 0;
+  margin: 0;
  text-align: center;
  padding: 0;
  font-weight: bold;
@@ -58,30 +67,49 @@ body{
 }
 
 .player {
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   background-color: red;
   position: relative;
   left: 275px;
-  top: 240px;
+  top: 400px;
 }
 
-
-.enemyContainer {
-  margin: 50px auto;
-}
 
 .start {
   color: white;
 }
+.stop {
+  color: white;
+}
 
 .enemy1{
-  height: 50px;
-  width: 50px;
+  height: 25px;
+  width: 25px;
   background-color: lightgreen;
   display: inline-block;
-  position: relative
-  left: 50%;
+  position: relative;
+  left: 500px;
+  top: 0;
+}
+
+.enemy2{
+  height: 40px;
+  width: 40px;
+  background-color: yellow;
+  display: inline-block;
+  position: relative;
+  left: 300px;
+  top: 0;
+}
+
+.enemy3{
+  height: 60px;
+  width: 60px;
+  background-color: orange;
+  display: inline-block;
+  position: relative;
+  left: 50px;
   top: 0;
 }
 
