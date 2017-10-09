@@ -155,38 +155,50 @@ let boundaries = function(obj){
 
 let laserObj = {
     who: laser,
-    height: 20,
-    width: 5,
-    x: playerObj.x + 18,
-    y: playerObj.y - 20 - playerObj.height
+    height: 30,
+    width: 3,
+    x: playerObj.x + 18, //This is so it shoots from the middle of player taking in to account the width of the laser
+    y: playerObj.y - 30 - playerObj.height // This is so it shoots above player height and you also have to minus the length of the laser
 };
 
+let numberOfLasers = 0; //This is to keep track of lasers. When we shoot this will go up to one. The player is not allowed to shoot when this is equal to one. w
+                       //When the laser is gone this will go back to zero allowing the player to shoot again!
 
 const lasers = function(){
+  numberOfLasers++;
   laser = document.createElement('div');
   laser.setAttribute('class', 'laser');
   border.appendChild(laser);
-  laser.style.left = laserObj.x + 'px'; //This is so it shoots from the middle of player taking in to account the width of the laser
-  laser.style.top = laserObj.y + 'px'; // This is so it shoots above player height and you also have to minus the length of the laser
+  laser.style.left = laserObj.x + 'px';
+  laser.style.top = laserObj.y + 'px';
   const laserShootUp = setInterval(function(){
-    laserObj.y -= 8;
+    laserObj.y -= 30;
     laser.style.top = laserObj.y + 'px';
-  }, 50)
-  if (laser.style.top < -20){
-    console.log('laser above');
-    laser.remove();
+    if (laserObj.y < -40){ //When/if it gets to the border it is removed.
+      console.log('laser above');
+      laser.remove();
+      numberOfLasers--;
+      clearInterval(laserShootUp); //This stops increasing y.
+      laserObj.x = playerObj.x + 18;  //Here we are reseting y and x so that next time we shoot it starts by the player
+      laserObj.y = playerObj.y - 30 - playerObj.height;
   }
+    }, 50)
+
 }
+
+
+window.addEventListener('keydown', function(event){
+  console.log(event.keyCode);
+  if (event.keyCode === 32 && numberOfLasers === 0){
+  lasers();
+  }
+});
+
 
 
 //MOVING THE PLAYER
 window.addEventListener('keydown', function(event){
   console.log(event.keyCode);
-
-//Lasers PEW PEW
-if (event.keyCode === 32){
-  lasers();
-}
 
 //MOVING RIGHT
 if (event.keyCode === 39){
@@ -215,10 +227,28 @@ if (event.keyCode === 38){
   player.style.top = playerObj.y + 'px';
   laserObj.y -= 20;
 }
-//boundaries(playerObj);
+boundaries(playerObj);
 
 });
 
+
+/*This could be a cool  laser upgrade
+const lasers = function(){
+  const laserShootUp = setInterval(function(){
+  laser = document.createElement('div');
+  laser.setAttribute('class', 'laser');
+  border.appendChild(laser);
+  laser.style.left = laserObj.x + 'px'; //This is so it shoots from the middle of player taking in to account the width of the laser
+  laser.style.top = laserObj.y + 'px'; // This is so it shoots above player height and you also have to minus the length of the laser
+  laserObj.y -= 8;
+  laser.style.top = laserObj.y + 'px';
+  }, 50)
+  if (laser.style.top < -20){
+    console.log('laser above');
+    laser.remove();
+  }
+}
+*/
 
 
 collision();

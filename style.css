@@ -114,14 +114,14 @@ body{
 }
 
 .laser{
-  height: 20px;
-  width: 5px;
+  height: 30px;
+  width: 3px;
   background-color: yellow;
   display: inline-block;
   position: relative;
   margin: 0;
   padding: 0;
-  border: none;
+
 
 }
 
