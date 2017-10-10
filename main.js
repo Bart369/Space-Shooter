@@ -1,228 +1,228 @@
 console.log('Game JS is working!')
 let border = document.querySelector('.border');
 let playerLives = document.querySelector('.playerLives')
-let enemy1 = document.querySelector('.enemy1');
-let enemy2 = document.querySelector('.enemy2');
-let enemy3 = document.querySelector('.enemy3');
+let enemy11 = document.querySelector('.enemy11');
+let enemy12 = document.querySelector('.enemy12');
+let enemy13 = document.querySelector('.enemy13');
 let start = document.querySelector('.start');
-let enemyContainer = document.querySelector('.enemyContainer');
+let enemy1Container = document.querySelector('.enemy1Container');
 let spaceHolder = document.querySelector('.spaceHolder');
 let stop = document.querySelector('.stop');
 let laser = document.querySelector('.laser');
-let enemyTest = document.querySelector('.enemyTest')
+let enemy1Test = document.querySelector('.enemy1Test')
 
-let enemySpawnPoints = [null, 100, 200, 300, 400, 500]; //The different  x coords spots enemies will appear from
+let enemy1SpawnPoints = [null, 100, 200, 300, 400, 500]; //The different  x coords spots enemies will appear from
 
-let enemyMiniSpawnPoints = [null, 100, 150, 200, 250, 300, 350, 400, 450, 500]
+let enemy1MiniSpawnPoints = [null, 100, 150, 200, 250, 300, 350, 400, 450, 500]
 
 
 
 /*
-let enemy1Obj = {
-  who: enemy1,
+let enemy11Obj = {
+  who: enemy11,
   x: 0,
   y: 50,
   height: 25,
   width: 25,
-//  movement: enemy1Move()
+//  movement: enemy11Move()
 }
 
-let enemyMiniObj = {
-  //who: enemyMini,
+let enemy1MiniObj = {
+  //who: enemy1Mini,
   x: 0,
   y: 50,
   height: 25,
   width: 25,
-//  movement: enemy1Move()
+//  movement: enemy11Move()
 }
 
-let enemy2Obj = {
-  who: enemy2,
+let enemy12Obj = {
+  who: enemy12,
   x: 0,
   y: 50,
   height: 40,
   width: 40
-  //movement: enemy2Move()
+  //movement: enemy12Move()
 }
 
 
 
-/////////////////////////////    ENEMYMINI   /////////////////////////
+/////////////////////////////    enemy1MINI   /////////////////////////
 
 //Originally just made this for practice but i like it so i kept it.
-let enemyMiniX = [] //Each  enemy  will have a different set of x and y coords so i can have more than one spawn.
-let enemyMiniY = [];
-let enemyMiniList = []
+let enemy1MiniX = [] //Each  enemy1  will have a different set of x and y coords so i can have more than one spawn.
+let enemy1MiniY = [];
+let enemy1MiniList = []
 
-let enemyMiniInGameCounter = 0; //So i is always increasing in the for loop so that i can have multiple copies of enemies and they won't override eachothers top and left style.
-const createEnemyMini = function(){
-  enemyMiniInGameCounter++;
-  for(let i = enemyMiniInGameCounter; i < (enemyMiniInGameCounter + 1); i++){
-    enemyMiniList[i] = document.createElement('div');
-    enemyMiniList[i].setAttribute('class', 'enemyMini');
-    spaceHolder.appendChild(enemyMiniList[i]);
-    enemyMiniX[i] = enemyMiniSpawnPoints[Math.floor((Math.random() * 9) + 1)] ; //This will randomize the x coords. Not sure why more than one Spawn at a time though
-    enemyMiniList[i].style.left = enemyMiniX[i] + 'px';
-    enemyMiniY[i] = enemyMiniObj.y;
-    moveEnemyMini(i)
+let enemy1MiniInGameCounter = 0; //So i is always increasing in the for loop so that i can have multiple copies of enemies and they won't override eachothers top and left style.
+const createenemy1Mini = function(){
+  enemy1MiniInGameCounter++;
+  for(let i = enemy1MiniInGameCounter; i < (enemy1MiniInGameCounter + 1); i++){
+    enemy1MiniList[i] = document.createElement('div');
+    enemy1MiniList[i].setAttribute('class', 'enemy1Mini');
+    spaceHolder.appendChild(enemy1MiniList[i]);
+    enemy1MiniX[i] = enemy1MiniSpawnPoints[Math.floor((Math.random() * 9) + 1)] ; //This will randomize the x coords. Not sure why more than one Spawn at a time though
+    enemy1MiniList[i].style.left = enemy1MiniX[i] + 'px';
+    enemy1MiniY[i] = enemy1MiniObj.y;
+    moveenemy1Mini(i)
   }
 }
-const moveEnemyMini = function(i){
-  let moveEnemyMoveDown = setInterval(function(){
-      enemyMiniY[i] += 6;
-      enemyMiniList[i].style.top = enemyMiniY[i] + 'px';
-      enemyMiniCollision(i);
-      if (enemyMiniY[i]  > 600){
-        enemyMiniList[i].remove();
-        clearInterval(moveEnemyMoveDown);
-        enemyMiniObj.y = 0;
+const moveenemy1Mini = function(i){
+  let moveenemy1MoveDown = setInterval(function(){
+      enemy1MiniY[i] += 6;
+      enemy1MiniList[i].style.top = enemy1MiniY[i] + 'px';
+      enemy1MiniCollision(i);
+      if (enemy1MiniY[i]  > 600){
+        enemy1MiniList[i].remove();
+        clearInterval(moveenemy1MoveDown);
+        enemy1MiniObj.y = 0;
       }
   }, 50)
 };
 
 
 
-/////////////////////////////////////// Enemy1 /////////////////////////////////////
+/////////////////////////////////////// enemy11 /////////////////////////////////////
 
 /*
-let enemy1List = [];
-let enemy1X = [];
-let enemy1Y = [];
+let enemy11List = [];
+let enemy11X = [];
+let enemy11Y = [];
 
 
-let enemy1InGameCounter = 0;
-const createEnemy1 = function(){
-  enemy1InGameCounter++;
-  for (let i = enemy1InGameCounter; i < (enemy1InGameCounter + 1); i++){
-    enemy1List[i] = document.createElement('div');
-    enemy1List[i].setAttribute('class', 'enemy1');
-    spaceHolder.appendChild(enemy1List[i]);
-    enemy1X[i] = enemySpawnPoints[Math.floor(Math.random() * 5) + 1];
-    enemy1List[i].style.Left = enemy1X[i] + 'px';
-    enemy1Y[i] = enemy1Obj.y;
-    enemy1Move(i);
+let enemy11InGameCounter = 0;
+const createenemy11 = function(){
+  enemy11InGameCounter++;
+  for (let i = enemy11InGameCounter; i < (enemy11InGameCounter + 1); i++){
+    enemy11List[i] = document.createElement('div');
+    enemy11List[i].setAttribute('class', 'enemy11');
+    spaceHolder.appendChild(enemy11List[i]);
+    enemy11X[i] = enemy1SpawnPoints[Math.floor(Math.random() * 5) + 1];
+    enemy11List[i].style.Left = enemy11X[i] + 'px';
+    enemy11Y[i] = enemy11Obj.y;
+    enemy11Move(i);
   }
 }
 
-const enemy1Move = function(i){
-  let enemy1Counter = 0;
-  let enemy1Switcher = Math.floor((Math.random() * 2) + 1);
-  enemy1Switcher++;
-  if (enemy1Switcher % 2 === 0){
-    let moveEnemy1Right = setInterval(function(){
-      enemy1Counter++;
-      enemy1Y[i] += 2;
-      enemy1List[i].style.top = enemy1Y[i] + 'px';
-      enemy1X[i] += 4;
-      enemy1List[i].style.left = enemy1X[i] + 'px';
-      if (enemy1Counter === 30){
-        clearInterval(moveEnemy1Right); //Stops in the inverval and starts the function again, it may switch sides depending on the switcher randomizer.
-        enemy1Move(i);
+const enemy11Move = function(i){
+  let enemy11Counter = 0;
+  let enemy11Switcher = Math.floor((Math.random() * 2) + 1);
+  enemy11Switcher++;
+  if (enemy11Switcher % 2 === 0){
+    let moveenemy11Right = setInterval(function(){
+      enemy11Counter++;
+      enemy11Y[i] += 2;
+      enemy11List[i].style.top = enemy11Y[i] + 'px';
+      enemy11X[i] += 4;
+      enemy11List[i].style.left = enemy11X[i] + 'px';
+      if (enemy11Counter === 30){
+        clearInterval(moveenemy11Right); //Stops in the inverval and starts the function again, it may switch sides depending on the switcher randomizer.
+        enemy11Move(i);
       }
-      if (enemy1X[i] > 600){
-        enemy1List[i].remove();
-        clearInterval(moveEnemy1Right);
+      if (enemy11X[i] > 600){
+        enemy11List[i].remove();
+        clearInterval(moveenemy11Right);
       }
-      else if (enemy1Y[i] > 600){
-        enemy1List[i].remove();
-        clearInterval(moveEnemy1Right);
+      else if (enemy11Y[i] > 600){
+        enemy11List[i].remove();
+        clearInterval(moveenemy11Right);
       }
     }, 50);
   }
   else {
-    let moveEnemy1Left = setInterval(function(){
-      enemy1Counter++;
-      enemy1Y[i] += 2;
-      enemy1List[i].style.top = enemy1Y[i] + 'px';
-      enemy1X[i] -= 4;
-      enemy1List[i].style.left = enemy1X[i] + 'px';
-      if (enemy1Counter === 30){
-        clearInterval(moveEnemy1Left);
-        enemy1Move(i);
+    let moveenemy11Left = setInterval(function(){
+      enemy11Counter++;
+      enemy11Y[i] += 2;
+      enemy11List[i].style.top = enemy11Y[i] + 'px';
+      enemy11X[i] -= 4;
+      enemy11List[i].style.left = enemy11X[i] + 'px';
+      if (enemy11Counter === 30){
+        clearInterval(moveenemy11Left);
+        enemy11Move(i);
       }
-      if (enemy1X[i] < 0){
-        enemy1List[i].remove();
-        clearInterval(moveEnemy1Left);
+      if (enemy11X[i] < 0){
+        enemy11List[i].remove();
+        clearInterval(moveenemy11Left);
       }
-      else if (enemy1Y[i] > 600){
-        enemy1List[i].remove();
-        clearInterval(moveEnemy1Left);
+      else if (enemy11Y[i] > 600){
+        enemy11List[i].remove();
+        clearInterval(moveenemy11Left);
       }
     }, 50);
   }
 }
 
 
-////////////////////////////////////  Enemy2    ////////////////////////////////
+////////////////////////////////////  enemy12    ////////////////////////////////
 
-let enemy2List = [];
-let enemy2X = [];
-let enemy2Y = [];
+let enemy12List = [];
+let enemy12X = [];
+let enemy12Y = [];
 
-let enemy2InGameCounter = 0;
-const createEnemy2 = function(){
-  enemy2InGameCounter++;
-  for (let i = enemy2InGameCounter; i < (enemy2InGameCounter + 1); i++){
-    enemy2List[i] = document.createElement('div');
-    enemy2List[i].setAttribute('class', 'enemy2');
-    spaceHolder.appendChild(enemy2List[i]);
-    enemy2X[i] = enemySpawnPoints[Math.floor(Math.random() * 5) + 1];
-    enemy2List[i].style.Left = enemy2X[i] + 'px';
-    enemy2Y[i] = enemy2Obj.y;
-    enemy2Move(i);
+let enemy12InGameCounter = 0;
+const createenemy12 = function(){
+  enemy12InGameCounter++;
+  for (let i = enemy12InGameCounter; i < (enemy12InGameCounter + 1); i++){
+    enemy12List[i] = document.createElement('div');
+    enemy12List[i].setAttribute('class', 'enemy12');
+    spaceHolder.appendChild(enemy12List[i]);
+    enemy12X[i] = enemy1SpawnPoints[Math.floor(Math.random() * 5) + 1];
+    enemy12List[i].style.Left = enemy12X[i] + 'px';
+    enemy12Y[i] = enemy12Obj.y;
+    enemy12Move(i);
   }
 }
 
 
-let enemy2Move = function(i){
-  let enemy2Switcher = Math.floor((Math.random() * 3) + 1);
-  if (enemy2Switcher === 3){
-    let moveEnemy2Right = setInterval(function(){
-      enemy2Y[i] += 5;
-      enemy2List[i].style.top = enemy2Y[i] + 'px';
-      enemy2X[i] += 3;
-      enemy2List[i].style.left = enemy2X[i] + 'px';
-      enemy2LaserCollision(i);
-      enemy2Collision(i);
-      if (enemy2X[i] > 550){
-        enemy2List[i].remove();
-        clearInterval(moveEnemy2Right);
+let enemy12Move = function(i){
+  let enemy12Switcher = Math.floor((Math.random() * 3) + 1);
+  if (enemy12Switcher === 3){
+    let moveenemy12Right = setInterval(function(){
+      enemy12Y[i] += 5;
+      enemy12List[i].style.top = enemy12Y[i] + 'px';
+      enemy12X[i] += 3;
+      enemy12List[i].style.left = enemy12X[i] + 'px';
+      enemy12LaserCollision(i);
+      enemy12Collision(i);
+      if (enemy12X[i] > 550){
+        enemy12List[i].remove();
+        clearInterval(moveenemy12Right);
       }
-      else if (enemy2Y[i]  > 600){
-        enemy2List[i].remove();
-        clearInterval(moveEnemy2Right);
+      else if (enemy12Y[i]  > 600){
+        enemy12List[i].remove();
+        clearInterval(moveenemy12Right);
       }
     }, 50)
   }
-  if (enemy2Switcher === 2){
-    let moveEnemy2Left = setInterval(function(){
-      enemy2Y[i] += 5;
-      enemy2List[i].style.top = enemy2Y[i] + 'px';
-      enemy2X[i] -= 3;
-      enemy2List[i].style.left = enemy2X[i] + 'px';
-      enemy2LaserCollision(i);
-      enemy2Collision(i);
-      if (enemy2X[i] < 0){
-        enemy2List[i].remove();
-        clearInterval(moveEnemy2Left);
+  if (enemy12Switcher === 2){
+    let moveenemy12Left = setInterval(function(){
+      enemy12Y[i] += 5;
+      enemy12List[i].style.top = enemy12Y[i] + 'px';
+      enemy12X[i] -= 3;
+      enemy12List[i].style.left = enemy12X[i] + 'px';
+      enemy12LaserCollision(i);
+      enemy12Collision(i);
+      if (enemy12X[i] < 0){
+        enemy12List[i].remove();
+        clearInterval(moveenemy12Left);
       }
-      else if (enemy2Y[i]  > 600){
-        enemy2List[i].remove();
-        clearInterval(moveEnemy2Left);
+      else if (enemy12Y[i]  > 600){
+        enemy12List[i].remove();
+        clearInterval(moveenemy12Left);
       }
     }, 50)
   }
   else {
-    let moveEnemy2Down = setInterval(function(){
-      enemy2Y[i] += 5;
-      enemy2List[i].style.top = enemy2Y[i] + 'px';
-      enemy2X[i] += 0;
-      enemy2List[i].style.left = enemy2X[i] + 'px';
-      enemy2LaserCollision(i);
-      enemy2Collision(i);
-      if (enemy2Y[i]  > 600){
-        enemy2List[i].remove();
-        clearInterval(moveEnemy2Down);
+    let moveenemy12Down = setInterval(function(){
+      enemy12Y[i] += 5;
+      enemy12List[i].style.top = enemy12Y[i] + 'px';
+      enemy12X[i] += 0;
+      enemy12List[i].style.left = enemy12X[i] + 'px';
+      enemy12LaserCollision(i);
+      enemy12Collision(i);
+      if (enemy12Y[i]  > 600){
+        enemy12List[i].remove();
+        clearInterval(moveenemy12Down);
       }
     }, 50)
   };
@@ -236,13 +236,13 @@ const callEnemies = function(){
   let callingEnemies = setInterval(function(){
     const num = Math.floor((Math.random() * 4) - 1);
     if (num === 1){
-      createEnemyMini();
+      createenemy1Mini();
     }
     else if (num === 2){
-      createEnemy1();
+      createenemy11();
     }
     else {
-      createEnemy2();
+      createenemy12();
     }
   }, 1000)
 };
@@ -254,42 +254,42 @@ const callEnemies = function(){
 /////////////////////////////////////    Collision       ///////////////////////////////////////////
 /*
 
-let enemyMiniCollision = function(i){
-    if (playerObj.x < enemyMiniX[i] + 25 &&
-     playerObj.x + 40 > enemyMiniX[i] &&
-     playerObj.y < enemyMiniY[i] + 25 &&
-     40 + playerObj.y > enemyMiniY[i]) {
-    enemyMiniList[i].style.backgroundColor = 'white';
-    enemyMiniList[i].remove();
+let enemy1MiniCollision = function(i){
+    if (playerObj.x < enemy1MiniX[i] + 25 &&
+     playerObj.x + 40 > enemy1MiniX[i] &&
+     playerObj.y < enemy1MiniY[i] + 25 &&
+     40 + playerObj.y > enemy1MiniY[i]) {
+    enemy1MiniList[i].style.backgroundColor = 'white';
+    enemy1MiniList[i].remove();
     }
 };
 
 
-let enemy2Collision = function(i){
+let enemy12Collision = function(i){
 
-    if (playerObj.x < enemy2X[i] + enemy2Obj.width &&
-   playerObj.x + playerObj.width > enemy2X[i] &&
-   playerObj.y < enemy2Y[i] + enemy2Obj.height &&
-   playerObj.height + playerObj.y > enemy2Y[i]) {
-    enemy2List[i].style.backgroundColor = 'white';
+    if (playerObj.x < enemy12X[i] + enemy12Obj.width &&
+   playerObj.x + playerObj.width > enemy12X[i] &&
+   playerObj.y < enemy12Y[i] + enemy12Obj.height &&
+   playerObj.height + playerObj.y > enemy12Y[i]) {
+    enemy12List[i].style.backgroundColor = 'white';
     console.log('collission !!!!!!!!');
-    console.log(`Enemy2 X is ${enemy2X[i]}`)
-    console.log(`Enemy2 Y is ${enemy2Y[i]}`)
-    enemy2List[i].remove();
+    console.log(`enemy12 X is ${enemy12X[i]}`)
+    console.log(`enemy12 Y is ${enemy12Y[i]}`)
+    enemy12List[i].remove();
     playerLives.remove();
     }
 };
 
-let enemy2LaserCollision = function(i){
-   if (laserObj.x < enemy2X[i] + enemy2Obj.width &&
-   laserObj.x + laserObj.width > enemy2X[i] &&
-   laserObj.y < enemy2Y[i] + enemy2Obj.height &&
-   laserObj.height + laserObj.y > enemy2Y[i]) {
-    enemy2List[i].style.backgroundColor = 'white';
+let enemy12LaserCollision = function(i){
+   if (laserObj.x < enemy12X[i] + enemy12Obj.width &&
+   laserObj.x + laserObj.width > enemy12X[i] &&
+   laserObj.y < enemy12Y[i] + enemy12Obj.height &&
+   laserObj.height + laserObj.y > enemy12Y[i]) {
+    enemy12List[i].style.backgroundColor = 'white';
     console.log('laser collission!');
-    console.log(`Enemy2 X is ${enemy2X[i]}`)
-    console.log(`Enemy2 Y is ${enemy2Y[i]}`)
-    enemy2List[i].remove();
+    console.log(`enemy12 X is ${enemy12X[i]}`)
+    console.log(`enemy12 Y is ${enemy12Y[i]}`)
+    enemy12List[i].remove();
     }
 };
 */
@@ -449,45 +449,74 @@ window.addEventListener('keydown', function(event){
   boundaries(boxObj)
 });
 
-const collision = function(){
-  if (boxObj.x < enemyObj.x + enemyObj.width &&
-   boxObj.x + boxObj.width > enemyObj.x &&
-   boxObj.y < enemyObj.y + enemyObj.height &&
-   boxObj.height + boxObj.y > enemyObj.y) {
-    console.log(`box X is ${boxObj.x} box Y is ${boxObj.y}`)
-    console.log(`Enemy X is ${enemyObj.x} enemy Y is ${enemyObj.y}`)
-    enemy.style.backgroundColor = 'white';
+const collision = function(playerobj, enemyobj){
+  if (playerobj.x < enemyobj.x + enemyobj.width &&
+   playerobj.x + playerobj.width > enemyobj.x &&
+   playerobj.y < enemyobj.y + enemyobj.height &&
+   playerobj.height + playerobj.y > enemyobj.y) {
+    console.log(`box X is ${playerobj.x} box Y is ${playerobj.y}`)
+    console.log(`enemy1 X is ${enemyobj.x} enemy1 Y is ${enemyobj.y}`)
+    enemyobj.who.style.backgroundColor = 'white';
     // collision detected!
   }
 }
 
-
-enemyObj = {
+enemy1Obj = {
   x: 300,
   y: 0,
   height: 40,
   width: 40
 }
 
-
-const createEnemy = function(){
-  enemy = document.createElement('div');
-  enemy.setAttribute('class', 'enemy');
-  spaceHolder.appendChild(enemy);
-  enemy.style.left = enemyObj.x + 'px';
-  enemy.style.top = enemyObj.y + 'px';
-  moveEnemy();
+const createEnemy1 = function(){
+  enemy1 = document.createElement('div');
+  enemy1Obj.who = enemy1;
+  enemy1.setAttribute('class', 'enemy1');
+  spaceHolder.appendChild(enemy1);
+  enemy1.style.left = enemy1Obj.x + 'px';
+  enemy1.style.top = enemy1Obj.y + 'px';
+  moveenemy1();
 };
 
-const moveEnemy = function(){
-  let moveEnemyDown = setInterval(function(){
-    enemyObj.y += 5;
-    enemy.style.top = enemyObj.y + 'px';
-    collision();
-    if (enemyObj.y > 600){
-      enemy.remove();
-      clearInterval(moveEnemyDown);
-      enemyObj.y = 0;
+const moveenemy1 = function(){
+  let moveEnemy1Down = setInterval(function(){
+    enemy1Obj.y += 5;
+    enemy1.style.top = enemy1Obj.y + 'px';
+    collision(boxObj,enemy1Obj);
+    if (enemy1Obj.y > 600){
+      enemy1.remove();
+      clearInterval(moveEnemy1Down);
+      enemy1Obj.y = 0;
+    }
+  },50)
+}
+
+enemy2Obj = {
+  x: 200,
+  y: 0,
+  height: 40,
+  width: 40
+}
+
+const createEnemy2 = function(){
+  enemy2 = document.createElement('div');
+  enemy2Obj.who = enemy2;
+  enemy2.setAttribute('class', 'enemy2');
+  spaceHolder.appendChild(enemy2);
+  enemy2.style.left = enemy2Obj.x + 'px';
+  enemy2.style.top = enemy2Obj.y + 'px';
+  moveEnemy2();
+};
+
+const moveEnemy2 = function(){
+  let moveenemy2Down = setInterval(function(){
+    enemy2Obj.y += 5;
+    enemy2.style.top = enemy2Obj.y + 'px';
+    collision(boxObj,enemy2Obj);
+    if (enemy2Obj.y > 600){
+      enemy2.remove();
+      clearInterval(moveEnemy2Down);
+      enemy2Obj.y = 0;
     }
   },50)
 }
@@ -495,5 +524,5 @@ const moveEnemy = function(){
 
 
 
-start.addEventListener('click', createEnemy);
+start.addEventListener('click', createEnemy2);
 
