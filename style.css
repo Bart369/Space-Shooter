@@ -71,8 +71,8 @@ body{
   width: 40px;
   background-color: red;
   position: relative;
-  left: 275px;
-  top: 400px;
+  left: 0;
+  top: 0;
 }
 
 
@@ -138,10 +138,28 @@ body{
   height: 60px;
   width:0 ;
   display: inline-block;
-
-
 }
 
+.enemy{
+  height: 40px;
+  width: 40px;
+  background-color: #cc66ff;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.box{
+  height: 40px;
+  width: 40px;
+  background-color: green;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+}
 
 
 

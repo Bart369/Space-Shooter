@@ -1,6 +1,6 @@
 console.log('Game JS is working!')
 let border = document.querySelector('.border');
-let player = document.querySelector('.player');
+let playerLives = document.querySelector('.playerLives')
 let enemy1 = document.querySelector('.enemy1');
 let enemy2 = document.querySelector('.enemy2');
 let enemy3 = document.querySelector('.enemy3');
@@ -9,19 +9,15 @@ let enemyContainer = document.querySelector('.enemyContainer');
 let spaceHolder = document.querySelector('.spaceHolder');
 let stop = document.querySelector('.stop');
 let laser = document.querySelector('.laser');
+let enemyTest = document.querySelector('.enemyTest')
 
 let enemySpawnPoints = [null, 100, 200, 300, 400, 500]; //The different  x coords spots enemies will appear from
 
 let enemyMiniSpawnPoints = [null, 100, 150, 200, 250, 300, 350, 400, 450, 500]
 
-let playerObj = {
-  who: player,
-  x: 275,
-  y: 400,
-  height: 40,
-  width: 40
-}
 
+
+/*
 let enemy1Obj = {
   who: enemy1,
   x: 0,
@@ -88,6 +84,7 @@ const moveEnemyMini = function(i){
 
 /////////////////////////////////////// Enemy1 /////////////////////////////////////
 
+/*
 let enemy1List = [];
 let enemy1X = [];
 let enemy1Y = [];
@@ -230,10 +227,10 @@ let enemy2Move = function(i){
     }, 50)
   };
 }
-
+*/
 //////////////////////////////////// Calling Enemies //////////////////////////////
 
-
+/*
 
 const callEnemies = function(){
   let callingEnemies = setInterval(function(){
@@ -250,12 +247,12 @@ const callEnemies = function(){
   }, 1000)
 };
 
-start.addEventListener('click', callEnemies);
+*/
 
 
 
 /////////////////////////////////////    Collision       ///////////////////////////////////////////
-
+/*
 
 let enemyMiniCollision = function(i){
     if (playerObj.x < enemyMiniX[i] + 25 &&
@@ -269,6 +266,7 @@ let enemyMiniCollision = function(i){
 
 
 let enemy2Collision = function(i){
+
     if (playerObj.x < enemy2X[i] + enemy2Obj.width &&
    playerObj.x + playerObj.width > enemy2X[i] &&
    playerObj.y < enemy2Y[i] + enemy2Obj.height &&
@@ -278,6 +276,7 @@ let enemy2Collision = function(i){
     console.log(`Enemy2 X is ${enemy2X[i]}`)
     console.log(`Enemy2 Y is ${enemy2Y[i]}`)
     enemy2List[i].remove();
+    playerLives.remove();
     }
 };
 
@@ -293,9 +292,26 @@ let enemy2LaserCollision = function(i){
     enemy2List[i].remove();
     }
 };
-
+*/
 
 /////////////////////////////////// Player and Laser and Boundary ///////////////////////////////
+
+let player = document.createElement('div');
+
+let playerObj = {
+  who: player,
+  x: 0,
+  y: 0,
+  height: 40,
+  width: 40
+}
+
+border.appendChild(player);
+player.setAttribute('class', 'player');
+player.style.left = '275px';
+player.style.top = '400px';
+
+
 
 //For the player mostly
 let boundaries = function(obj){
@@ -316,6 +332,7 @@ let boundaries = function(obj){
     obj.who.style.top = obj.y + 'px';
   }
 };
+/*
 
 let laserObj = {
     who: laser,
@@ -339,7 +356,6 @@ const lasers = function(){
     laserObj.y -= 30;
     laser.style.top = laserObj.y + 'px';
     if (laserObj.y < -40){ //When/if it gets to the border it is removed.
-      console.log('laser above');
       laser.remove();
       numberOfLasers--;
       clearInterval(laserShootUp); //This stops increasing y.
@@ -350,45 +366,124 @@ const lasers = function(){
 };
 
 
-
+*/
 
 //MOVING THE PLAYER
 window.addEventListener('keydown', function(event){
-
+/*
 //LASERS PEW PEW... if numberOfLaser equals one then it won't shoot.
 if (event.keyCode === 32 && numberOfLasers === 0){
   lasers();
 }
+*/
 
 //MOVING RIGHT
 if (event.keyCode === 39){
   playerObj.x += 20;
   player.style.left = playerObj.x + 'px';
-  laserObj.x += 20; //As the player moves, the origin of the laser changes with it.
+ // laserObj.x += 20; //As the player moves, the origin of the laser changes with it.
 }
 
 //MOVING LEFT
 if (event.keyCode === 37){
   playerObj.x -= 20;
   player.style.left = playerObj.x + 'px';
-  laserObj.x -= 20;
+  //laserObj.x -= 20;
 }
 
 //MOVING Down
 if (event.keyCode === 40){
   playerObj.y += 20;
   player.style.top = playerObj.y + 'px';
-  laserObj.y += 20;
+  //laserObj.y += 20;
 }
 
 //MOVING Up
 if (event.keyCode === 38){
   playerObj.y -= 20;
   player.style.top = playerObj.y + 'px';
-  laserObj.y -= 20;
+  //laserObj.y -= 20;
 }
 boundaries(playerObj); //Checking boundaries every time the player moves
 });
 
+///////////////////////////////// Testing ///////////////////////////////
+/
+boxObj = {
+  x: 300,
+  y: 400,
+  height: 40,
+  width: 40
+}
 
+box = document.createElement('div');
+box.setAttribute('class', 'box');
+spaceHolder.appendChild(box);
+box.style.left = '300px';
+box.style.top = '400px';
+
+const collision = function(){
+  if (boxObj.x < enemyObj.x + enemyObj.width &&
+   boxObj.x + boxObj.width > enemyObj.x &&
+   boxObj.y < enemyObj.y + enemyObj.height &&
+   boxObj.height + boxObj.y > enemyObj.y) {
+    console.log(`box X is ${boxObj.x} box Y is ${boxObj.y}`)
+    console.log(`Enemy X is ${enemyObj.x} enemy Y is ${enemyObj.y}`)
+    enemy.style.backgroundColor = 'white';
+    // collision detected!
+  }
+}
+
+
+*/
+
+
+enemyObj = {
+  x: 300,
+  y: 0,
+  height: 40,
+  width: 40
+}
+
+
+
+const collision = function(){
+  if (playerObj.x < enemyObj.x + enemyObj.width &&
+   playerObj.x + playerObj.width > enemyObj.x &&
+   playerObj.y < enemyObj.y + enemyObj.height &&
+   playerObj.height + playerObj.y > enemyObj.y) {
+    console.log(`Player X is ${playerObj.x} Player Y is ${playerObj.y}`)
+    console.log(`Enemy X is ${enemyObj.x} enemy Y is ${enemyObj.y}`)
+    enemy.style.backgroundColor = 'white';
+    // collision detected!
+  }
+}
+
+
+const createEnemy = function(){
+  enemy = document.createElement('div');
+  enemy.setAttribute('class', 'enemy');
+  spaceHolder.appendChild(enemy);
+  enemy.style.left = enemyObj.x + 'px';
+  enemy.style.top = enemyObj.y + 'px';
+  moveEnemy();
+};
+
+const moveEnemy = function(){
+  let moveEnemyDown = setInterval(function(){
+    enemyObj.y += 5;
+    enemy.style.top = enemyObj.y + 'px';
+    collision();
+    if (enemyObj.y > 600){
+      enemy.remove();
+      clearInterval(moveEnemyDown);
+      enemyObj.y = 0;
+    }
+  },50)
+}
+
+
+
+
+start.addEventListener('click', createEnemy);
 
