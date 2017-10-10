@@ -295,7 +295,7 @@ let enemy2LaserCollision = function(i){
 */
 
 /////////////////////////////////// Player and Laser and Boundary ///////////////////////////////
-
+/*
 let player = document.createElement('div');
 
 let playerObj = {
@@ -314,24 +314,7 @@ player.style.top = '400px';
 
 
 //For the player mostly
-let boundaries = function(obj){
-  if (obj.x < 0){
-    obj.x = 0;
-    obj.who.style.left = obj.x + 'px';
-  }
-  if (obj.y < 0){
-    obj.y = 0;
-    obj.who.style.top = obj.y + 'px';
-  }
-  if (obj.x + obj.width > 600){
-    obj.x = 600 - obj.width;
-    obj.who.style.left = obj.x + 'px';
-  }
-  if (obj.y + obj.height > 550){
-    obj.y = 550 - obj.height;
-    obj.who.style.top = obj.y + 'px';
-  }
-};
+
 /*
 
 let laserObj = {
@@ -367,7 +350,7 @@ const lasers = function(){
 
 
 */
-
+/*
 //MOVING THE PLAYER
 window.addEventListener('keydown', function(event){
 /*
@@ -375,7 +358,6 @@ window.addEventListener('keydown', function(event){
 if (event.keyCode === 32 && numberOfLasers === 0){
   lasers();
 }
-*/
 
 //MOVING RIGHT
 if (event.keyCode === 39){
@@ -406,21 +388,66 @@ if (event.keyCode === 38){
 }
 boundaries(playerObj); //Checking boundaries every time the player moves
 });
+*/
 
 ///////////////////////////////// Testing ///////////////////////////////
-/
+box = document.createElement('div');
+
+let boundaries = function(obj){
+  if (obj.x < 0){
+    obj.x = 0;
+    obj.who.style.left = obj.x + 'px';
+  }
+  if (obj.y < 0){
+    obj.y = 0;
+    obj.who.style.top = obj.y + 'px';
+  }
+  if (obj.x + obj.width > 600){
+    obj.x = 600 - obj.width;
+    obj.who.style.left = obj.x + 'px';
+  }
+  if (obj.y + obj.height > 550){
+    obj.y = 550 - obj.height;
+    obj.who.style.top = obj.y + 'px';
+  }
+};
+
 boxObj = {
-  x: 300,
-  y: 400,
+  who: box,
+  x: 325,
+  y: 500,
   height: 40,
   width: 40
 }
 
-box = document.createElement('div');
 box.setAttribute('class', 'box');
 spaceHolder.appendChild(box);
-box.style.left = '300px';
-box.style.top = '400px';
+box.style.left = '325px';
+box.style.top = '500px';
+
+window.addEventListener('keydown', function(event){
+  //MOVING RIGHT
+  if (event.keyCode === 39){
+    boxObj.x += 20;
+    box.style.left = boxObj.x + 'px';
+  }
+  //MOVING LEFT
+  if (event.keyCode === 37){
+    boxObj.x -= 20;
+    box.style.left = boxObj.x + 'px';
+  }
+  //MOVING Down
+  if (event.keyCode === 40){
+    boxObj.y += 20;
+    box.style.top = boxObj.y + 'px';
+  }
+  //MOVING Up
+  if (event.keyCode === 38){
+    boxObj.y -= 20;
+    box.style.top = boxObj.y + 'px';
+  }
+  boundaries(boxObj)
+});
 
 const collision = function(){
   if (boxObj.x < enemyObj.x + enemyObj.width &&
@@ -435,28 +462,11 @@ const collision = function(){
 }
 
 
-*/
-
-
 enemyObj = {
   x: 300,
   y: 0,
   height: 40,
   width: 40
-}
-
-
-
-const collision = function(){
-  if (playerObj.x < enemyObj.x + enemyObj.width &&
-   playerObj.x + playerObj.width > enemyObj.x &&
-   playerObj.y < enemyObj.y + enemyObj.height &&
-   playerObj.height + playerObj.y > enemyObj.y) {
-    console.log(`Player X is ${playerObj.x} Player Y is ${playerObj.y}`)
-    console.log(`Enemy X is ${enemyObj.x} enemy Y is ${enemyObj.y}`)
-    enemy.style.backgroundColor = 'white';
-    // collision detected!
-  }
 }
 
 
