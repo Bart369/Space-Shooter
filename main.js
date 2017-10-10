@@ -49,45 +49,6 @@ let enemy2Obj = {
   //movement: enemy2Move()
 }
 
-/*
-
-let enemy1Move = function(){
-  let enemy1Counter = 0;
-  let enemy1Switcher = Math.floor((Math.random() * 2) + 1);
-  enemy1Switcher++;
-  console.log('This is enemy1Switcher ' + enemy1Switcher);
-  if (enemy1Switcher % 2 === 0){
-    let moveEnemy1Right = setInterval(function(){
-      console.log('Moving Right')
-      enemy1Counter++;
-      enemy1Obj.y += 2;
-      enemy1.style.top = enemy1Obj.y + 'px';
-      enemy1Obj.x += 3;
-      enemy1.style.left = enemy1Obj.x + 'px';
-      if (enemy1Counter === 35){
-        clearInterval(moveEnemy1Right);
-        enemy1Move();
-      }
-    }, 50);
-  }
-  else {
-    let moveEnemy1Left = setInterval(function(){
-      enemy1Counter++;
-      console.log('Moving Left')
-      enemy1Obj.y += 2;
-      enemy1.style.top = enemy1Obj.y + 'px';
-      enemy1Obj.x -= 3;
-      enemy1.style.left = enemy1Obj.x + 'px';
-      if (enemy1Counter === 35){
-        clearInterval(moveEnemy1Left);
-        enemy1Move();
-      }
-    }, 50);
-  }
-}
-*/
-
-
 
 
 /////////////////////////////    ENEMYMINI   /////////////////////////
@@ -112,10 +73,9 @@ const createEnemyMini = function(){
 }
 const moveEnemyMini = function(i){
   let moveEnemyMoveDown = setInterval(function(){
-      console.log('Moving Down');
       enemyMiniY[i] += 6;
       enemyMiniList[i].style.top = enemyMiniY[i] + 'px';
-      collision();
+      enemyMiniCollision(i);
       if (enemyMiniY[i]  > 600){
         enemyMiniList[i].remove();
         clearInterval(moveEnemyMoveDown);
@@ -151,10 +111,8 @@ const enemy1Move = function(i){
   let enemy1Counter = 0;
   let enemy1Switcher = Math.floor((Math.random() * 2) + 1);
   enemy1Switcher++;
-  console.log('This is enemy1Switcher ' + enemy1Switcher);
   if (enemy1Switcher % 2 === 0){
     let moveEnemy1Right = setInterval(function(){
-      console.log('Moving Right')
       enemy1Counter++;
       enemy1Y[i] += 2;
       enemy1List[i].style.top = enemy1Y[i] + 'px';
@@ -164,12 +122,19 @@ const enemy1Move = function(i){
         clearInterval(moveEnemy1Right); //Stops in the inverval and starts the function again, it may switch sides depending on the switcher randomizer.
         enemy1Move(i);
       }
+      if (enemy1X[i] > 600){
+        enemy1List[i].remove();
+        clearInterval(moveEnemy1Right);
+      }
+      else if (enemy1Y[i] > 600){
+        enemy1List[i].remove();
+        clearInterval(moveEnemy1Right);
+      }
     }, 50);
   }
   else {
     let moveEnemy1Left = setInterval(function(){
       enemy1Counter++;
-      console.log('Moving Left')
       enemy1Y[i] += 2;
       enemy1List[i].style.top = enemy1Y[i] + 'px';
       enemy1X[i] -= 4;
@@ -177,6 +142,14 @@ const enemy1Move = function(i){
       if (enemy1Counter === 30){
         clearInterval(moveEnemy1Left);
         enemy1Move(i);
+      }
+      if (enemy1X[i] < 0){
+        enemy1List[i].remove();
+        clearInterval(moveEnemy1Left);
+      }
+      else if (enemy1Y[i] > 600){
+        enemy1List[i].remove();
+        clearInterval(moveEnemy1Left);
       }
     }, 50);
   }
@@ -206,14 +179,22 @@ const createEnemy2 = function(){
 
 let enemy2Move = function(i){
   let enemy2Switcher = Math.floor((Math.random() * 3) + 1);
-  console.log('This is enemy2Switcher ' + enemy2Switcher);
   if (enemy2Switcher === 3){
     let moveEnemy2Right = setInterval(function(){
       enemy2Y[i] += 5;
       enemy2List[i].style.top = enemy2Y[i] + 'px';
       enemy2X[i] += 3;
       enemy2List[i].style.left = enemy2X[i] + 'px';
-      collision();
+      enemy2LaserCollision(i);
+      enemy2Collision(i);
+      if (enemy2X[i] > 550){
+        enemy2List[i].remove();
+        clearInterval(moveEnemy2Right);
+      }
+      else if (enemy2Y[i]  > 600){
+        enemy2List[i].remove();
+        clearInterval(moveEnemy2Right);
+      }
     }, 50)
   }
   if (enemy2Switcher === 2){
@@ -222,7 +203,16 @@ let enemy2Move = function(i){
       enemy2List[i].style.top = enemy2Y[i] + 'px';
       enemy2X[i] -= 3;
       enemy2List[i].style.left = enemy2X[i] + 'px';
-      collision();
+      enemy2LaserCollision(i);
+      enemy2Collision(i);
+      if (enemy2X[i] < 0){
+        enemy2List[i].remove();
+        clearInterval(moveEnemy2Left);
+      }
+      else if (enemy2Y[i]  > 600){
+        enemy2List[i].remove();
+        clearInterval(moveEnemy2Left);
+      }
     }, 50)
   }
   else {
@@ -231,7 +221,12 @@ let enemy2Move = function(i){
       enemy2List[i].style.top = enemy2Y[i] + 'px';
       enemy2X[i] += 0;
       enemy2List[i].style.left = enemy2X[i] + 'px';
-      collision();
+      enemy2LaserCollision(i);
+      enemy2Collision(i);
+      if (enemy2Y[i]  > 600){
+        enemy2List[i].remove();
+        clearInterval(moveEnemy2Down);
+      }
     }, 50)
   };
 }
@@ -240,34 +235,67 @@ let enemy2Move = function(i){
 
 
 
-const createEnemyFuncs = [createEnemyMini(), createEnemy1(), createEnemy2()];
-
 const callEnemies = function(){
-  createEnemyFuncs[Math.floor((Math.random() * 4) - 1)];
+  let callingEnemies = setInterval(function(){
+    const num = Math.floor((Math.random() * 4) - 1);
+    if (num === 1){
+      createEnemyMini();
+    }
+    else if (num === 2){
+      createEnemy1();
+    }
+    else {
+      createEnemy2();
+    }
+  }, 1000)
 };
 
 start.addEventListener('click', callEnemies);
 
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////    Collision       ///////////////////////////////////////////
 
 
-
-function collision(){
-  if (playerObj.x < enemy2Obj.x + enemy2Obj.width &&
-   playerObj.x + playerObj.width > enemy2Obj.x &&
-   playerObj.y < enemy2Obj.y + enemy2Obj.height &&
-   playerObj.height + playerObj.y > enemy2Obj.y) {
-    console.log('collission holy shittttttttt');
-  }
-    // collision detected!
+let enemyMiniCollision = function(i){
+    if (playerObj.x < enemyMiniX[i] + 25 &&
+     playerObj.x + 40 > enemyMiniX[i] &&
+     playerObj.y < enemyMiniY[i] + 25 &&
+     40 + playerObj.y > enemyMiniY[i]) {
+    enemyMiniList[i].style.backgroundColor = 'white';
+    enemyMiniList[i].remove();
+    }
 };
 
 
+let enemy2Collision = function(i){
+    if (playerObj.x < enemy2X[i] + enemy2Obj.width &&
+   playerObj.x + playerObj.width > enemy2X[i] &&
+   playerObj.y < enemy2Y[i] + enemy2Obj.height &&
+   playerObj.height + playerObj.y > enemy2Y[i]) {
+    enemy2List[i].style.backgroundColor = 'white';
+    console.log('collission !!!!!!!!');
+    console.log(`Enemy2 X is ${enemy2X[i]}`)
+    console.log(`Enemy2 Y is ${enemy2Y[i]}`)
+    enemy2List[i].remove();
+    }
+};
+
+let enemy2LaserCollision = function(i){
+   if (laserObj.x < enemy2X[i] + enemy2Obj.width &&
+   laserObj.x + laserObj.width > enemy2X[i] &&
+   laserObj.y < enemy2Y[i] + enemy2Obj.height &&
+   laserObj.height + laserObj.y > enemy2Y[i]) {
+    enemy2List[i].style.backgroundColor = 'white';
+    console.log('laser collission!');
+    console.log(`Enemy2 X is ${enemy2X[i]}`)
+    console.log(`Enemy2 Y is ${enemy2Y[i]}`)
+    enemy2List[i].remove();
+    }
+};
 
 
-
+/////////////////////////////////// Player and Laser and Boundary ///////////////////////////////
 
 //For the player mostly
 let boundaries = function(obj){
@@ -326,7 +354,6 @@ const lasers = function(){
 
 //MOVING THE PLAYER
 window.addEventListener('keydown', function(event){
-  console.log(event.keyCode);
 
 //LASERS PEW PEW... if numberOfLaser equals one then it won't shoot.
 if (event.keyCode === 32 && numberOfLasers === 0){
@@ -361,9 +388,7 @@ if (event.keyCode === 38){
   laserObj.y -= 20;
 }
 boundaries(playerObj); //Checking boundaries every time the player moves
-
 });
 
 
-collision();
 
