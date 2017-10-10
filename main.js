@@ -12,6 +12,8 @@ let laser = document.querySelector('.laser');
 
 let enemySpawnPoints = [null, 100, 200, 300, 400, 500]; //The different  x coords spots enemies will appear from
 
+let enemyMiniSpawnPoints = [null, 100, 150, 200, 250, 300, 350, 400, 450, 500]
+
 let playerObj = {
   who: player,
   x: 275,
@@ -30,9 +32,9 @@ let enemy1Obj = {
 }
 
 let enemyMiniObj = {
-  who: enemy1,
+  //who: enemyMini,
   x: 0,
-  y: 0,
+  y: 50,
   height: 25,
   width: 25,
 //  movement: enemy1Move()
@@ -41,7 +43,7 @@ let enemyMiniObj = {
 let enemy2Obj = {
   who: enemy2,
   x: 0,
-  y: 0,
+  y: 50,
   height: 40,
   width: 40
   //movement: enemy2Move()
@@ -85,110 +87,53 @@ let enemy1Move = function(){
 }
 */
 
-let enemy2Move = function(){
-  let enemy2Switcher = Math.floor((Math.random() * 3) + 1);
-  enemy2Switcher += Math.floor((Math.random() * 3) + 1);
-  console.log('This is enemy2Switcher ' + enemy2Switcher);
-  if (enemy2Switcher === 3){
-    let moveEnemy2Right = setInterval(function(){
-      console.log('Moving Right')
-      enemy2Obj.y += 3;
-      enemy2.style.top = enemy2Obj.y + 'px';
-      enemy2Obj.x += 3;
-      enemy2.style.left = enemy2Obj.x + 'px';
-      collision();
-    }, 50)
-  }
-  if (enemy2Switcher === 2){
-    let moveEnemy2Left = setInterval(function(){
-      console.log('Moving Left')
-      enemy2Obj.y += 5;
-      enemy2.style.top = enemy2Obj.y + 'px';
-      enemy2Obj.x -= 3;
-      enemy2.style.left = enemy2Obj.x + 'px';
-      collision();
-    }, 50)
-  }
-  else {
-    let moveEnemy2Down = setInterval(function(){
-      console.log('Moving Down')
-      enemy2Obj.y += 5;
-      enemy2.style.top = enemy2Obj.y + 'px';
-      collision();
-    }, 50)
-  };
-}
 
 
 
+/////////////////////////////    ENEMYMINI   /////////////////////////
 
+//Originally just made this for practice but i like it so i kept it.
+let enemyMiniX = [] //Each  enemy  will have a different set of x and y coords so i can have more than one spawn.
+let enemyMiniY = [];
+let enemyMiniList = []
 
-
-let enemyMiniTop = 0;
-let enemyMiniList = []; //These enemies will be in an array
-
+let enemyMiniInGameCounter = 0; //So i is always increasing in the for loop so that i can have multiple copies of enemies and they won't override eachothers top and left style.
 const createEnemyMini = function(){
-  for(let i = 0; i < 3; i++){
-  enemyMiniList[i] = document.createElement('div');
-  enemyMiniList[i].setAttribute('class', 'enemyMini');
-  spaceHolder.appendChild(enemyMiniList[i]);
-  enemyMiniList[i].style.left = enemySpawnPoints[Math.floor((Math.random() * 5) + 1)] + 'px'; //This will randomize the x coords. Not sure why more than one Spawn at a time though
+  enemyMiniInGameCounter++;
+  for(let i = enemyMiniInGameCounter; i < (enemyMiniInGameCounter + 1); i++){
+    enemyMiniList[i] = document.createElement('div');
+    enemyMiniList[i].setAttribute('class', 'enemyMini');
+    spaceHolder.appendChild(enemyMiniList[i]);
+    enemyMiniX[i] = enemyMiniSpawnPoints[Math.floor((Math.random() * 9) + 1)] ; //This will randomize the x coords. Not sure why more than one Spawn at a time though
+    enemyMiniList[i].style.left = enemyMiniX[i] + 'px';
+    enemyMiniY[i] = enemyMiniObj.y;
+    moveEnemyMini(i)
+  }
+}
+const moveEnemyMini = function(i){
   let moveEnemyMoveDown = setInterval(function(){
       console.log('Moving Down');
-      enemyMiniObj.y += 4;
-      enemyMiniList[i].style.top = enemyMiniObj.y + 'px';
+      enemyMiniY[i] += 6;
+      enemyMiniList[i].style.top = enemyMiniY[i] + 'px';
       collision();
-      if (enemyMiniObj.y > 600){
+      if (enemyMiniY[i]  > 600){
         enemyMiniList[i].remove();
         clearInterval(moveEnemyMoveDown);
         enemyMiniObj.y = 0;
       }
   }, 50)
-  }
-}
+};
+
+
+
+/////////////////////////////////////// Enemy1 /////////////////////////////////////
 
 let enemy1List = [];
-let enemy1X = []; //Each  enemy1  will have a different set of x and y coords so i can have more than one spawn.
+let enemy1X = [];
 let enemy1Y = [];
 
-let enemy1Move = function(i){
-      let enemy1Counter = 0;
-      let enemy1Switcher = Math.floor((Math.random() * 2) + 1);
-      enemy1Switcher++;
-      console.log('This is enemy1Switcher ' + enemy1Switcher);
-      if (enemy1Switcher % 2 === 0){
-        let moveEnemy1Right = setInterval(function(){
-          console.log('Moving Right')
-          enemy1Counter++;
-          enemy1Y[i] += 2;
-          enemy1List[i].style.top = enemy1Y[i] + 'px';
-          enemy1X[i] += 4;
-          enemy1List[i].style.left = enemy1X[i] + 'px';
-          if (enemy1Counter === 30){
-            clearInterval(moveEnemy1Right); //Stops in the inverval and starts the function again, it may switch sides depending on the switcher randomizer.
-            enemy1Move(i);
-          }
-        }, 50);
-      }
-      else {
-        let moveEnemy1Left = setInterval(function(){
-          enemy1Counter++;
-          console.log('Moving Left')
-          enemy1Y[i] += 2;
-          enemy1List[i].style.top = enemy1Y[i] + 'px';
-          enemy1X[i] -= 4;
-          enemy1List[i].style.left = enemy1X[i] + 'px';
-          if (enemy1Counter === 30){
-            clearInterval(moveEnemy1Left);
-            enemy1Move(i);
-          }
-        }, 50);
-      }
-    }
 
-
-
-let enemy1InGameCounter = 0;  //Setting i in the for loop to this value which will increase the move enemy1 are created.
+let enemy1InGameCounter = 0;
 const createEnemy1 = function(){
   enemy1InGameCounter++;
   for (let i = enemy1InGameCounter; i < (enemy1InGameCounter + 1); i++){
@@ -202,10 +147,111 @@ const createEnemy1 = function(){
   }
 }
 
+const enemy1Move = function(i){
+  let enemy1Counter = 0;
+  let enemy1Switcher = Math.floor((Math.random() * 2) + 1);
+  enemy1Switcher++;
+  console.log('This is enemy1Switcher ' + enemy1Switcher);
+  if (enemy1Switcher % 2 === 0){
+    let moveEnemy1Right = setInterval(function(){
+      console.log('Moving Right')
+      enemy1Counter++;
+      enemy1Y[i] += 2;
+      enemy1List[i].style.top = enemy1Y[i] + 'px';
+      enemy1X[i] += 4;
+      enemy1List[i].style.left = enemy1X[i] + 'px';
+      if (enemy1Counter === 30){
+        clearInterval(moveEnemy1Right); //Stops in the inverval and starts the function again, it may switch sides depending on the switcher randomizer.
+        enemy1Move(i);
+      }
+    }, 50);
+  }
+  else {
+    let moveEnemy1Left = setInterval(function(){
+      enemy1Counter++;
+      console.log('Moving Left')
+      enemy1Y[i] += 2;
+      enemy1List[i].style.top = enemy1Y[i] + 'px';
+      enemy1X[i] -= 4;
+      enemy1List[i].style.left = enemy1X[i] + 'px';
+      if (enemy1Counter === 30){
+        clearInterval(moveEnemy1Left);
+        enemy1Move(i);
+      }
+    }, 50);
+  }
+}
+
+
+////////////////////////////////////  Enemy2    ////////////////////////////////
+
+let enemy2List = [];
+let enemy2X = [];
+let enemy2Y = [];
+
+let enemy2InGameCounter = 0;
+const createEnemy2 = function(){
+  enemy2InGameCounter++;
+  for (let i = enemy2InGameCounter; i < (enemy2InGameCounter + 1); i++){
+    enemy2List[i] = document.createElement('div');
+    enemy2List[i].setAttribute('class', 'enemy2');
+    spaceHolder.appendChild(enemy2List[i]);
+    enemy2X[i] = enemySpawnPoints[Math.floor(Math.random() * 5) + 1];
+    enemy2List[i].style.Left = enemy2X[i] + 'px';
+    enemy2Y[i] = enemy2Obj.y;
+    enemy2Move(i);
+  }
+}
+
+
+let enemy2Move = function(i){
+  let enemy2Switcher = Math.floor((Math.random() * 3) + 1);
+  console.log('This is enemy2Switcher ' + enemy2Switcher);
+  if (enemy2Switcher === 3){
+    let moveEnemy2Right = setInterval(function(){
+      enemy2Y[i] += 5;
+      enemy2List[i].style.top = enemy2Y[i] + 'px';
+      enemy2X[i] += 3;
+      enemy2List[i].style.left = enemy2X[i] + 'px';
+      collision();
+    }, 50)
+  }
+  if (enemy2Switcher === 2){
+    let moveEnemy2Left = setInterval(function(){
+      enemy2Y[i] += 5;
+      enemy2List[i].style.top = enemy2Y[i] + 'px';
+      enemy2X[i] -= 3;
+      enemy2List[i].style.left = enemy2X[i] + 'px';
+      collision();
+    }, 50)
+  }
+  else {
+    let moveEnemy2Down = setInterval(function(){
+      enemy2Y[i] += 5;
+      enemy2List[i].style.top = enemy2Y[i] + 'px';
+      enemy2X[i] += 0;
+      enemy2List[i].style.left = enemy2X[i] + 'px';
+      collision();
+    }, 50)
+  };
+}
+
+//////////////////////////////////// Calling Enemies //////////////////////////////
 
 
 
-start.addEventListener('click', createEnemy1);
+const createEnemyFuncs = [createEnemyMini(), createEnemy1(), createEnemy2()];
+
+const callEnemies = function(){
+  createEnemyFuncs[Math.floor((Math.random() * 4) - 1)];
+};
+
+start.addEventListener('click', callEnemies);
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 function collision(){
@@ -317,25 +363,6 @@ if (event.keyCode === 38){
 boundaries(playerObj); //Checking boundaries every time the player moves
 
 });
-
-
-/*This could be a cool  laser upgrade
-const lasers = function(){
-  const laserShootUp = setInterval(function(){
-  laser = document.createElement('div');
-  laser.setAttribute('class', 'laser');
-  border.appendChild(laser);
-  laser.style.left = laserObj.x + 'px'; //This is so it shoots from the middle of player taking in to account the width of the laser
-  laser.style.top = laserObj.y + 'px'; // This is so it shoots above player height and you also have to minus the length of the laser
-  laserObj.y -= 8;
-  laser.style.top = laserObj.y + 'px';
-  }, 50)
-  if (laser.style.top < -20){
-    console.log('laser above');
-    laser.remove();
-  }
-}
-*/
 
 
 collision();
