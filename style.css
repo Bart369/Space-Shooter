@@ -229,7 +229,7 @@ body{
 .healthPack {
   height: 30px;
   width: 30px;
-  background-color: white;
+  background-color: green;
   display: inline-block;
   position: absolute;
   left: 0;
@@ -239,7 +239,7 @@ body{
 .pointItem1 {
   height: 30px;
   width: 30px;
-  background-color: white;
+  background-color: blue;
   display: inline-block;
   position: absolute;
   left: 0;
@@ -256,10 +256,10 @@ body{
   top: 0;
 }
 
-.pointItem3{
+.winItem{
   height: 30px;
   width: 30px;
-  background-color: white;
+  background-color: gold;
   display: inline-block;
   position: absolute;
   left: 0;

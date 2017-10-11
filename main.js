@@ -17,6 +17,7 @@ spaceHolder.appendChild(box);
 box.style.left = '325px';
 box.style.top = '500px';
 
+const itemXSpawn = [105, 165, 230, 325, 405, 385, 525, 585, 265];
 let scorePoints = 0;
 
 let boundaries = function(obj){
@@ -126,28 +127,31 @@ let healthPackObj = {
   y: 0,
   height: 30,
   width: 30,
+  id: 'hp' //used in collisions
 }
 
 let pointItem1Obj = {
-  x: 500
-  y: 0
+  x: 500,
+  y: 0,
   height: 30,
-  width: 30
+  width: 30,
+  id: 'points'
 }
 
 
 let pointItem2Obj = {
-  x: 100
-  y: 0
+  x: 100,
+  y: 0,
   height: 30,
   width: 30
 }
 
 let winObj = {
-  x: 200
-  y: 0
+  x: 200,
+  y: 0,
   height: 30,
-  width: 30
+  width: 30,
+  id: 'win'
 }
 
 
@@ -238,8 +242,7 @@ const collision = function(boxObj, enemyobj){
   if (boxObj.x < enemyobj.x + enemyobj.width &&
    boxObj.x + boxObj.width > enemyobj.x &&
    boxObj.y < enemyobj.y + enemyobj.height &&
-   boxObj.height + boxObj.y > enemyobj.y &&
-    enemyobj.life === 1) {
+   boxObj.height + boxObj.y > enemyobj.y) {
     console.log(`box X is ${boxObj.x} box Y is ${boxObj.y}`)
     console.log(`Hit by ${enemyobj.num} X is ${enemyobj.x} ${enemyobj.num} Y is ${enemyobj.y}`)
     enemyobj.who.remove();
@@ -271,12 +274,24 @@ const itemCollision = function(boxObj, item){
    boxObj.x + boxObj.width > item.x &&
    boxObj.y < item.y + item.height &&
    boxObj.height + boxObj.y > item.y){
-    item.who.style.backgroundColor = 'green';
-    //item.exists = false;
     item.who.remove();
-    console.log('You got item!')
+    if(item.who === 'points'){
+      scorePoints += 5000;
+      points.innerHTML = scorePoints;
+    }
+    else if (item.who === 'hp'){
+      for(let i = 0; lives.childNodes.length < 23; i++){
+        playerLives = document.createElement('div');
+        playerLives.setAttribute('class', 'playerLives')
+        lives.appendChild(playerLives);
+      }
+
+    }
+
+  console.log('You got item!')
   }
 }
+
 
 
 
@@ -289,6 +304,7 @@ const makeHealthPack = function(){
   healthPack.setAttribute('class', 'healthPack');
   spaceHolder.appendChild(healthPack);
   healthPackObj.who = healthPack;
+  healthPackObj.x = itemXSpawn[Math.floor((Math.random() * 9) + 1)]
   healthPack.style.left = healthPackObj.x + 'px'
   healthPack.style.top = healthPackObj.y + 'px';
   moveHealthPack();
@@ -303,19 +319,50 @@ const moveHealthPack = function(){
 
 const makeWinItem = function(){
   //healthPackObj.exists = true;
-  healthPack = document.createElement('div');
-  healthPack.setAttribute('class', 'healthPack');
-  spaceHolder.appendChild(healthPack);
-  healthPackObj.who = healthPack;
-  healthPack.style.left = healthPackObj.x + 'px'
-  healthPack.style.top = healthPackObj.y + 'px';
-  moveHealthPack();
+  winItem = document.createElement('div');
+  winItem.setAttribute('class', 'winItem');
+  spaceHolder.appendChild(winItem);
+  winObj.who = winItem;
+  winObj.x = itemXSpawn[Math.floor((Math.random() * 9) + 1)]
+  winItem.style.left = winObj.x + 'px'
+  winItem.style.top = winObj.y + 'px';
+  moveWinItem();
 }
-const moveHealthPack = function(){
-  let healthPackMoveDown = setInterval(function(){
-    healthPackObj.y += 3;
-    healthPack.style.top = healthPackObj.y + 'px';
-    itemCollision(boxObj, healthPackObj)
+const moveWinItem = function(){
+  let moveWinMoveDown = setInterval(function(){
+    winObj.y += 3;
+    winItem.style.top = winObj.y + 'px';
+    itemCollision(boxObj, winObj)
+    if (winObj.y > 600){
+      enemy1Obj.life = 0
+      winItem.remove();
+      clearInterval(moveWinMoveDown);
+      winObj.y = 0;
+    }
+  }, 50)
+}
+
+const makePointItem1 = function(){
+  //healthPackObj.exists = true;
+  pointItem1 = document.createElement('div');
+  pointItem1.setAttribute('class', 'pointItem1');
+  spaceHolder.appendChild(pointItem1);
+  pointItem1Obj.who = pointItem1;
+  pointItem1Obj.x = itemXSpawn[Math.floor((Math.random() * 9) + 1)];
+  pointItem1.style.left = pointItem1Obj.x + 'px'
+  pointItem1.style.top = pointItem1Obj.y + 'px';
+  movePointItem1();
+}
+const movePointItem1 = function(){
+  let movePointItem1Down = setInterval(function(){
+    pointItem1Obj.y += 3;
+    pointItem1.style.top = pointItem1Obj.y + 'px';
+    itemCollision(boxObj, pointItem1Obj)
+    if (pointItem1Obj.y > 600){
+      pointItem1.remove();
+      clearInterval(movePointItem1Down);
+      pointItem1Obj.y = 0;
+    }
   }, 50)
 }
 
@@ -583,12 +630,26 @@ const callEnemies = function(){
     stop.addEventListener('click', stopEnemies);
   }, 500)
 };
+/*
+const moveItems = function(){
+  let movingItems = setInterval(function(){
+    const stopEnemies = function(){
+      clearInterval(callingEnemies);
+    }
+
+  }
 
 
+
+
+
+}
+
+*/
 //const num = Math.floor((Math.random() * 4) + 1);
 //if (num === 1 && healthPackExists === false)
 
-start.addEventListener('click', makeItems);
+start.addEventListener('click', makeHealthPack);
 
 
 
