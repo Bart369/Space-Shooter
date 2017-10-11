@@ -1,15 +1,12 @@
 console.log('Game JS is working!')
 let border = document.querySelector('.border');
 let playerLives = document.querySelector('.playerLives')
-let enemy11 = document.querySelector('.enemy11');
-let enemy12 = document.querySelector('.enemy12');
-let enemy13 = document.querySelector('.enemy13');
 let start = document.querySelector('.start');
 let enemy1Container = document.querySelector('.enemy1Container');
 let spaceHolder = document.querySelector('.spaceHolder');
 let stop = document.querySelector('.stop');
 let laser = document.querySelector('.laser');
-let enemy1Test = document.querySelector('.enemy1Test')
+let lives = document.querySelector('.livesContainer')
 
 let enemy1SpawnPoints = [null, 100, 200, 300, 400, 500]; //The different  x coords spots enemies will appear from
 
@@ -358,6 +355,7 @@ let boxObj = {
 }
 
 let enemy1Obj = {
+  num: 1,
   x: 100,
   y: 0,
   height: 40,
@@ -367,6 +365,7 @@ let enemy1Obj = {
 
 
 let enemy2Obj = {
+  num: 2,
   x: 200,
   y: 0,
   height: 40,
@@ -375,6 +374,7 @@ let enemy2Obj = {
 }
 
 let enemy3Obj = {
+  num: 3,
   x: 250,
   y: 0,
   height: 40,
@@ -383,6 +383,7 @@ let enemy3Obj = {
 }
 
 let enemy4Obj = {
+  num: 4,
   x: 300,
   y: 0,
   height: 40,
@@ -391,6 +392,7 @@ let enemy4Obj = {
 }
 
 let enemy5Obj = {
+  num: 5,
   x: 350,
   y: 0,
   height: 40,
@@ -399,6 +401,7 @@ let enemy5Obj = {
 }
 
 let enemy6Obj = {
+  num: 6,
   x: 400,
   y: 0,
   height: 40,
@@ -407,6 +410,7 @@ let enemy6Obj = {
 }
 
 let enemy7Obj = {
+  num: 7,
   x: 470,
   y: 0,
   height: 70,
@@ -415,6 +419,7 @@ let enemy7Obj = {
 }
 
 let enemy8Obj = {
+  num: 8,
   x: 540,
   y: 0,
   height: 50,
@@ -494,7 +499,7 @@ window.addEventListener('keydown', function(event){
   boundaries(boxObj)
 });
 
-//////////////////////////////////////// Collision //////////////////
+///////////////////////////////////Collision and Points /////////////////////////
 
 const collision = function(boxObj, enemyobj){
   if (boxObj.x < enemyobj.x + enemyobj.width &&
@@ -502,9 +507,16 @@ const collision = function(boxObj, enemyobj){
    boxObj.y < enemyobj.y + enemyobj.height &&
    boxObj.height + boxObj.y > enemyobj.y) {
     console.log(`box X is ${boxObj.x} box Y is ${boxObj.y}`)
-    console.log(`enemy1 X is ${enemyobj.x} enemy1 Y is ${enemyobj.y}`)
-    enemyobj.who.style.backgroundColor = 'white';
-    // collision detected!
+    console.log(`${enemyobj.num} X is ${enemyobj.x} ${enemyobj.num} Y is ${enemyobj.y}`)
+    enemyobj.who.style.top = enemyobj.y;
+    enemyobj.who.remove();
+    if (lives.childNodes.length === 0){
+      //alert('YOU LOSE!!');
+    }
+    else {
+      console.log('You were hit!!')
+      lives.removeChild(lives.childNodes[0]);
+    }
   }
 }
 
@@ -513,8 +525,7 @@ const laserCollision = function(laser, enemyobj){
    laserObj.x + laserObj.width > enemyobj.x &&
    laserObj.y < enemyobj.y + enemyobj.height &&
    laserObj.height + laserObj.y > enemyobj.y) {
-    console.log(`box X is ${laserObj.x} box Y is ${laserObj.y}`)
-    console.log(`enemy1 X is ${enemyobj.x} enemy1 Y is ${enemyobj.y}`)
+    console.log('Laser HIT')
     enemyobj.who.remove();
     enemyobj.who.style.backgroundColor = 'white';
   }
@@ -747,9 +758,15 @@ const moveEnemy8 = function(){
   },50)
 }
 
+const stopEnemies = function(){
+  clearInterval(callingEnemies);
+};
 
 const callEnemies = function(){
   let callingEnemies = setInterval(function(){
+    const stopEnemies = function(){
+      clearInterval(callingEnemies);
+    };
     const num = Math.floor((Math.random() * 9) - 1);
     if (num === 1 && enemy1Obj.life === 0){
       createEnemy1();
@@ -775,10 +792,13 @@ const callEnemies = function(){
     else if (num === 8 && enemy8Obj.life === 0){
       createEnemy8();
     }
+    stop.addEventListener('click', stopEnemies);
   }, 500)
 };
 
 start.addEventListener('click', callEnemies);
+
+
 
 
 
