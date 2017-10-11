@@ -9,6 +9,7 @@ let enemyContainer = document.querySelector('.enemyContainer');
 let spaceHolder = document.querySelector('.spaceHolder');
 let stop = document.querySelector('.stop');
 let laser = document.querySelector('.laser');
+let points = document.querySelector('.points');
 
 let enemySpawnPoints = [null, 100, 200, 300, 400, 500]; //The different  x coords spots enemies will appear from
 
@@ -49,7 +50,7 @@ let enemy2Obj = {
   //movement: enemy2Move()
 }
 
-
+let scorePoints = 0
 
 /////////////////////////////    ENEMYMINI   /////////////////////////
 
@@ -259,7 +260,7 @@ start.addEventListener('click', callEnemies);
 
 
 
-/////////////////////////////////////    Collision       ///////////////////////////////////////////
+/////////////////////////////////////    Collision and Points       ///////////////////////////////////////////
 
 
 let enemyMiniCollision = function(i){
@@ -267,7 +268,6 @@ let enemyMiniCollision = function(i){
      playerObj.x + 40 > enemyMiniX[i] &&
      playerObj.y < enemyMiniY[i] + 25 &&
      40 + playerObj.y > enemyMiniY[i]) {
-    enemyMiniList[i].style.backgroundColor = 'white';
     enemyMiniList[i].remove();
     }
 };
@@ -278,8 +278,8 @@ let enemyMiniLaserCollision = function(i){
    laserObj.x + laserObj.width > enemyMiniX[i] &&
    laserObj.y < enemyMiniY[i] + 25 &&
    laserObj.height + laserObj.y > enemyMiniY[i]) {
-    console.log('LASER HIT!!!!!!!!!')
-    enemyMiniList[i].style.backgroundColor = 'white';
+    scorePoints += 500;
+    points.innerHTML = scorePoints
     enemyMiniList[i].remove();
     }
 };
@@ -298,7 +298,8 @@ let enemy1LaserCollision = function(i){
    laserObj.x + laserObj.width > enemy1X[i] &&
    laserObj.y < enemy1Y[i] + 25 &&
    laserObj.height + laserObj.y > enemy1Y[i]) {
-    console.log('LASER HIT!!!!!!!!!')
+    scorePoints += 1000;
+    points.innerHTML = scorePoints
     enemy1List[i].remove();
     }
 };
@@ -320,8 +321,8 @@ let enemy2LaserCollision = function(i){
    laserObj.x + laserObj.width > enemy2X[i] &&
    laserObj.y < enemy2Y[i] + enemy2Obj.height &&
    laserObj.height + laserObj.y > enemy2Y[i]) {
-    console.log('LASER HIT!!!!!!!!!')
-    enemy2List[i].style.backgroundColor = 'white';
+    scorePoints += 300;
+    points.innerHTML = scorePoints
     enemy2List[i].remove();
     }
 };
