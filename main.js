@@ -10,6 +10,8 @@ let spaceHolder = document.querySelector('.spaceHolder');
 let stop = document.querySelector('.stop');
 let laser = document.querySelector('.laser');
 let points = document.querySelector('.points');
+let playerLives = document.querySelectorAll('.playerLives')
+let livesContainer = document.querySelector('.livesContainer')
 
 let enemySpawnPoints = [null, 100, 200, 300, 400, 500]; //The different  x coords spots enemies will appear from
 
@@ -265,11 +267,18 @@ start.addEventListener('click', callEnemies);
 
 let enemyMiniCollision = function(i){
     if (playerObj.x < enemyMiniX[i] + 25 &&
-     playerObj.x + 40 > enemyMiniX[i] &&
+     playerObj.x + 50 > enemyMiniX[i] &&
      playerObj.y < enemyMiniY[i] + 25 &&
-     40 + playerObj.y > enemyMiniY[i]) {
-    enemyMiniList[i].remove();
-    }
+     50 + playerObj.y > enemyMiniY[i]) {
+        if (livesContainer.childNodes.length === 0){
+          //alert('YOU LOSE!!');
+        }
+        else {
+          enemyMiniList[i].remove();
+          console.log('Blue guy hit you!!')
+          livesContainer.removeChild(livesContainer.childNodes[0]);
+        }
+      }
 };
 
 
@@ -286,11 +295,18 @@ let enemyMiniLaserCollision = function(i){
 
 let enemy1Collision = function(i){
     if (playerObj.x < enemy1X[i] + 25 &&
-     playerObj.x + 40 > enemy1X[i] &&
+     playerObj.x + 50 > enemy1X[i] &&
      playerObj.y < enemy1Y[i] + 25 &&
-     40 + playerObj.y > enemy1Y[i]) {
-    enemy1List[i].remove();
-    }
+     50 + playerObj.y > enemy1Y[i]) {
+        if (livesContainer.childNodes.length === 0){
+          //alert('YOU LOSE!!');
+        }
+        else {
+          enemy1List[i].remove();
+          console.log('Green guy hit you!!')
+          livesContainer.removeChild(livesContainer.playerLives[0]);
+        }
+      }
 };
 
 let enemy1LaserCollision = function(i){
@@ -311,8 +327,15 @@ let enemy2Collision = function(i){
    playerObj.x + playerObj.width > enemy2X[i] &&
    playerObj.y < enemy2Y[i] + enemy2Obj.height &&
    playerObj.height + playerObj.y > enemy2Y[i]) {
-    enemy2List[i].style.backgroundColor = 'white';
-    enemy2List[i].remove();
+      if (livesContainer.childNodes.length === 0){
+        //alert('YOU LOSE!!');
+      }
+      else {
+        enemy2List[i].remove();
+        console.log('Purple guy hit you!!')
+        livesContainer.removeChild(livesContainer.childNodes[0]);
+      }
+
     }
 };
 
@@ -354,7 +377,7 @@ let laserObj = {
     who: laser,
     height: 30,
     width: 3,
-    x: playerObj.x + 18, //This is so it shoots from the middle of player taking in to account the width of the laser
+    x: playerObj.x + 22, //This is so it shoots from the middle of player taking in to account the width of the laser
     y: playerObj.y - 30 - playerObj.height // This is so it shoots above player height and you also have to minus the length of the laser
 };
 

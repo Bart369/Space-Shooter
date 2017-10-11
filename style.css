@@ -11,7 +11,7 @@ body{
 }
 
 .border {
-  height: 550px;
+  height: 565px;
   width: 600px;
   background-image: url('Space.jpeg');
   background-size: cover;
@@ -67,12 +67,13 @@ body{
 }
 
 .player {
-  height: 40px;
-  width: 40px;
-  background-color: red;
+  height: 50px;
+  width: 50px;
   position: absolute;
   left: 325px;
   top: 500px;
+  background-image: url('redfighter0005.png');
+  background-size: cover;
 }
 
 
@@ -86,17 +87,20 @@ body{
 .enemy1{
   height: 25px;
   width: 25px;
-  background-color: lightgreen;
+
   display: inline-block;
   position: absolute;
   left: 0;
   top: 0;
+  background-image: url('13.png');
+  background-size: cover;
 }
 
 .enemyMini{
-  height: 25px;
-  width: 25px;
-  background-color: #66ffff;
+  height: 30px;
+  width: 30px;
+  background-image: url('7.png');
+  background-size: cover;
   display: inline-block;
   position: absolute;
   left: 0;
@@ -105,8 +109,9 @@ body{
 
 .enemy2{
   height: 40px;
-  width: 40px;
-  background-color: #cc66ff;
+  width: 50px;
+  background-image: url('294.png');
+  background-size: cover;
   display: inline-block;
   position: absolute;
   left: 300px;
