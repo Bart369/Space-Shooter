@@ -9,6 +9,9 @@ let laser = document.querySelector('.laser');
 let lives = document.querySelector('.livesContainer')
 let points = document.querySelector('.points');
 let box = document.createElement('div');
+
+
+
 box.setAttribute('class', 'box');
 spaceHolder.appendChild(box);
 box.style.left = '325px';
@@ -118,6 +121,42 @@ let enemy8Obj = {
   life: 0
 }
 
+let healthPackObj = {
+  x: 300,
+  y: 0,
+  height: 30,
+  width: 30,
+}
+
+let pointItem1Obj = {
+  x: 500
+  y: 0
+  height: 30,
+  width: 30
+}
+
+
+let pointItem2Obj = {
+  x: 100
+  y: 0
+  height: 30,
+  width: 30
+}
+
+let winObj = {
+  x: 200
+  y: 0
+  height: 30,
+  width: 30
+}
+
+
+
+
+
+
+
+
 //////////////////////////////////////// Laser /////////////////////////////////////
 
 let laserObj = {
@@ -203,7 +242,6 @@ const collision = function(boxObj, enemyobj){
     enemyobj.life === 1) {
     console.log(`box X is ${boxObj.x} box Y is ${boxObj.y}`)
     console.log(`Hit by ${enemyobj.num} X is ${enemyobj.x} ${enemyobj.num} Y is ${enemyobj.y}`)
-    enemyobj.who.style.top = enemyobj.y;
     enemyobj.who.remove();
     if (lives.childNodes.length === 0){
       //alert('YOU LOSE!!');
@@ -224,11 +262,62 @@ const laserCollision = function(laser, enemyobj){
     scorePoints += 500;
     points.innerHTML = scorePoints
     enemyobj.who.remove();
-    enemyobj.who.style.backgroundColor = 'white';
+    enemyobj.who.style.backgroundColor = 'green';
   }
 }
 
+const itemCollision = function(boxObj, item){
+  if (boxObj.x < item.x + item.width &&
+   boxObj.x + boxObj.width > item.x &&
+   boxObj.y < item.y + item.height &&
+   boxObj.height + boxObj.y > item.y){
+    item.who.style.backgroundColor = 'green';
+    //item.exists = false;
+    item.who.remove();
+    console.log('You got item!')
+  }
+}
+
+
+
 ///////////////////////////////// Enemy 1 ///////////////////////////////
+
+
+const makeHealthPack = function(){
+  //healthPackObj.exists = true;
+  healthPack = document.createElement('div');
+  healthPack.setAttribute('class', 'healthPack');
+  spaceHolder.appendChild(healthPack);
+  healthPackObj.who = healthPack;
+  healthPack.style.left = healthPackObj.x + 'px'
+  healthPack.style.top = healthPackObj.y + 'px';
+  moveHealthPack();
+}
+const moveHealthPack = function(){
+  let healthPackMoveDown = setInterval(function(){
+    healthPackObj.y += 3;
+    healthPack.style.top = healthPackObj.y + 'px';
+    itemCollision(boxObj, healthPackObj)
+  }, 50)
+}
+
+const makeWinItem = function(){
+  //healthPackObj.exists = true;
+  healthPack = document.createElement('div');
+  healthPack.setAttribute('class', 'healthPack');
+  spaceHolder.appendChild(healthPack);
+  healthPackObj.who = healthPack;
+  healthPack.style.left = healthPackObj.x + 'px'
+  healthPack.style.top = healthPackObj.y + 'px';
+  moveHealthPack();
+}
+const moveHealthPack = function(){
+  let healthPackMoveDown = setInterval(function(){
+    healthPackObj.y += 3;
+    healthPack.style.top = healthPackObj.y + 'px';
+    itemCollision(boxObj, healthPackObj)
+  }, 50)
+}
 
 
 const createEnemy1 = function(){
@@ -455,6 +544,8 @@ const moveEnemy8 = function(){
   },50)
 }
 
+
+
 const stopEnemies = function(){
   clearInterval(callingEnemies);
 };
@@ -493,7 +584,11 @@ const callEnemies = function(){
   }, 500)
 };
 
-start.addEventListener('click', callEnemies);
+
+//const num = Math.floor((Math.random() * 4) + 1);
+//if (num === 1 && healthPackExists === false)
+
+start.addEventListener('click', makeItems);
 
 
 
