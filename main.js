@@ -461,8 +461,10 @@ const collision = function(playerobj, enemyobj){
   }
 }
 
+///////////////////////////////// Enemy 1
+
 enemy1Obj = {
-  x: 300,
+  x: 100,
   y: 0,
   height: 40,
   width: 40
@@ -491,6 +493,7 @@ const moveenemy1 = function(){
   },50)
 }
 
+/////////////////////// Enemy 2
 enemy2Obj = {
   x: 200,
   y: 0,
@@ -522,7 +525,201 @@ const moveEnemy2 = function(){
 }
 
 
+///////////////////////////// Enemy 3
+
+enemy3Obj = {
+  x: 250,
+  y: 0,
+  height: 40,
+  width: 40
+}
+
+const createEnemy3 = function(){
+  enemy3 = document.createElement('div');
+  enemy3Obj.who = enemy3;
+  enemy3.setAttribute('class', 'enemy3');
+  spaceHolder.appendChild(enemy3);
+  enemy3.style.left = enemy3Obj.x + 'px';
+  enemy3.style.top = enemy3Obj.y + 'px';
+  moveEnemy3();
+};
+
+const moveEnemy3 = function(){
+  let moveEnemy3Down = setInterval(function(){
+    enemy3Obj.y += 5;
+    enemy3.style.top = enemy3Obj.y + 'px';
+    collision(boxObj,enemy3Obj);
+    if (enemy3Obj.y > 600){
+      enemy3.remove();
+      clearInterval(moveEnemy3Down);
+      enemy3Obj.y = 0;
+    }
+  },50)
+}
+
+///////////////////////////////////////// Enemy 4
 
 
-start.addEventListener('click', createEnemy2);
+enemy4Obj = {
+  x: 300,
+  y: 0,
+  height: 40,
+  width: 40
+}
+
+const createEnemy4 = function(){
+  enemy4 = document.createElement('div');
+  enemy4Obj.who = enemy4;
+  enemy4.setAttribute('class', 'enemy4');
+  spaceHolder.appendChild(enemy4);
+  enemy4.style.left = enemy4Obj.x + 'px';
+  enemy4.style.top = enemy4Obj.y + 'px';
+  moveEnemy4();
+};
+
+const moveEnemy4 = function(){
+  let moveEnemy4Down = setInterval(function(){
+    enemy4Obj.y += 5;
+    enemy4.style.top = enemy4Obj.y + 'px';
+    collision(boxObj,enemy4Obj);
+    if (enemy4Obj.y > 600){
+      enemy4.remove();
+      clearInterval(moveEnemy4Down);
+      enemy4Obj.y = 0;
+    }
+  },50)
+}
+
+
+//////////////////////////////////////////// Enemy 5
+
+enemy5Obj = {
+  x: 350,
+  y: 0,
+  height: 40,
+  width: 40
+}
+
+const createEnemy5 = function(){
+  enemy5 = document.createElement('div');
+  enemy5Obj.who = enemy5;
+  enemy5.setAttribute('class', 'enemy5');
+  spaceHolder.appendChild(enemy5);
+  enemy5.style.left = enemy5Obj.x + 'px';
+  enemy5.style.top = enemy5Obj.y + 'px';
+  moveEnemy5();
+};
+
+const moveEnemy5 = function(){
+  let moveEnemy5Down = setInterval(function(){
+    enemy5Obj.y += 5;
+    enemy5.style.top = enemy5Obj.y + 'px';
+    collision(boxObj,enemy5Obj);
+    if (enemy5Obj.y > 600){
+      enemy5.remove();
+      clearInterval(moveEnemy5Down);
+      enemy5Obj.y = 0;
+    }
+  },50)
+}
+
+////////////////////////////////////////////////// Enemy 6
+
+enemy6Obj = {
+  x: 400,
+  y: 0,
+  height: 40,
+  width: 40
+}
+
+const createEnemy6 = function(){
+  enemy6 = document.createElement('div');
+  enemy6Obj.who = enemy6;
+  enemy6.setAttribute('class', 'enemy6');
+  spaceHolder.appendChild(enemy6);
+  enemy6.style.left = enemy6Obj.x + 'px';
+  enemy6.style.top = enemy6Obj.y + 'px';
+  moveEnemy6();
+};
+
+const moveEnemy6 = function(){
+  let moveEnemy6Down = setInterval(function(){
+    enemy6Obj.y += 5;
+    enemy6.style.top = enemy6Obj.y + 'px';
+    collision(boxObj,enemy6Obj);
+    if (enemy6Obj.y > 600){
+      enemy6.remove();
+      clearInterval(moveEnemy6Down);
+      enemy6Obj.y = 0;
+    }
+  },50)
+}
+
+
+////////////////////////////////////////////////////// Enemy 7
+
+enemy7Obj = {
+  x: 470,
+  y: 0,
+  height: 70,
+  width: 30
+}
+
+const createEnemy7 = function(){
+  enemy7 = document.createElement('div');
+  enemy7Obj.who = enemy7;
+  enemy7.setAttribute('class', 'enemy7');
+  spaceHolder.appendChild(enemy7);
+  enemy7.style.left = enemy7Obj.x + 'px';
+  enemy7.style.top = enemy7Obj.y + 'px';
+  moveEnemy7();
+};
+
+const moveEnemy7 = function(){
+  let moveEnemy7Down = setInterval(function(){
+    enemy7Obj.y += 5;
+    enemy7.style.top = enemy7Obj.y + 'px';
+    collision(boxObj,enemy7Obj);
+    if (enemy7Obj.y > 600){
+      enemy7.remove();
+      clearInterval(moveEnemy7Down);
+      enemy7Obj.y = 0;
+    }
+  },50)
+}
+
+////////////////////////////////////////////////////// Enemy 8
+
+
+enemy8Obj = {
+  x: 540,
+  y: 0,
+  height: 50,
+  width: 60
+}
+
+const createEnemy8 = function(){
+  enemy8 = document.createElement('div');
+  enemy8Obj.who = enemy8;
+  enemy8.setAttribute('class', 'enemy8');
+  spaceHolder.appendChild(enemy8);
+  enemy8.style.left = enemy8Obj.x + 'px';
+  enemy8.style.top = enemy8Obj.y + 'px';
+  moveEnemy8();
+};
+
+const moveEnemy8 = function(){
+  let moveEnemy8Down = setInterval(function(){
+    enemy8Obj.y += 5;
+    enemy8.style.top = enemy8Obj.y + 'px';
+    collision(boxObj,enemy8Obj);
+    if (enemy8Obj.y > 600){
+      enemy8.remove();
+      clearInterval(moveEnemy8Down);
+      enemy8Obj.y = 0;
+    }
+  },50)
+}
+
+start.addEventListener('click', createEnemy7);
 

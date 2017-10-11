@@ -82,7 +82,7 @@ body{
 .stop {
   color: white;
 }
-
+/*
 .enemy1{
   height: 25px;
   width: 25px;
@@ -122,6 +122,7 @@ body{
   left: 50px;
   top: 0;
 }
+*/
 
 .laser{
   height: 30px;
@@ -140,7 +141,7 @@ body{
   display: inline-block;
 }
 
-.enemy{
+.enemy1{
   height: 40px;
   width: 40px;
   background-color: #cc66ff;
@@ -149,6 +150,75 @@ body{
   left: 0;
   top: 0;
 }
+
+.enemy2{
+  height: 40px;
+  width: 40px;
+  background-color: #33cccc;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.enemy3{
+  height: 40px;
+  width: 40px;
+  background-color: yellow;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.enemy4{
+  height: 40px;
+  width: 40px;
+  background-color: lightgreen;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.enemy5{
+  height: 40px;
+  width: 40px;
+  background-color: orange;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.enemy6{
+  height: 40px;
+  width: 40px;
+  background-color: #cc0099;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.enemy7{
+  height: 70px;
+  width: 30px;
+  background-color: #99cc00;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.enemy8{
+  height: 50px;
+  width: 60px;
+  background-color: #0066cc;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+
 
 .box{
   height: 40px;
