@@ -323,6 +323,10 @@ boundaries(boxObj); //Checking boundaries every time the player moves
 
 ///////////////////////////////// Testing ///////////////////////////////
 box = document.createElement('div');
+box.setAttribute('class', 'box');
+spaceHolder.appendChild(box);
+box.style.left = '325px';
+box.style.top = '500px';
 
 let boundaries = function(obj){
   if (obj.x < 52){
@@ -343,7 +347,9 @@ let boundaries = function(obj){
   }
 };
 
-boxObj = {
+///////////////////////////////////// Objects //////////////////////////////
+
+let boxObj = {
   who: box,
   x: 325,
   y: 500,
@@ -351,10 +357,72 @@ boxObj = {
   width: 40
 }
 
-box.setAttribute('class', 'box');
-spaceHolder.appendChild(box);
-box.style.left = '325px';
-box.style.top = '500px';
+let enemy1Obj = {
+  x: 100,
+  y: 0,
+  height: 40,
+  width: 40,
+  life: 0
+}
+
+
+let enemy2Obj = {
+  x: 200,
+  y: 0,
+  height: 40,
+  width: 40,
+  life: 0
+}
+
+let enemy3Obj = {
+  x: 250,
+  y: 0,
+  height: 40,
+  width: 40,
+  life: 0
+}
+
+let enemy4Obj = {
+  x: 300,
+  y: 0,
+  height: 40,
+  width: 40,
+  life: 0
+}
+
+let enemy5Obj = {
+  x: 350,
+  y: 0,
+  height: 40,
+  width: 40,
+  life: 0
+}
+
+let enemy6Obj = {
+  x: 400,
+  y: 0,
+  height: 40,
+  width: 40,
+  life: 0
+}
+
+let enemy7Obj = {
+  x: 470,
+  y: 0,
+  height: 70,
+  width: 30,
+  life: 0
+}
+
+let enemy8Obj = {
+  x: 540,
+  y: 0,
+  height: 50,
+  width: 60,
+  life: 0
+}
+
+//////////////////////////////////////// Laser /////////////////////////////////////
 
 let laserObj = {
     who: laser,
@@ -375,6 +443,14 @@ const lasers = function(){
   const laserShootUp = setInterval(function(){
     laserObj.y -= 30;
     laser.style.top = laserObj.y + 'px';
+    laserCollision(laserObj,enemy1Obj);
+    laserCollision(laserObj,enemy2Obj);
+    laserCollision(laserObj,enemy3Obj);
+    laserCollision(laserObj,enemy4Obj);
+    laserCollision(laserObj,enemy5Obj);
+    laserCollision(laserObj,enemy6Obj);
+    laserCollision(laserObj,enemy7Obj);
+    laserCollision(laserObj,enemy8Obj);
     if (laserObj.y < 80){ //When/if it gets to the border it is removed.
       laser.remove();
       numberOfLasers--;
@@ -418,6 +494,8 @@ window.addEventListener('keydown', function(event){
   boundaries(boxObj)
 });
 
+//////////////////////////////////////// Collision //////////////////
+
 const collision = function(boxObj, enemyobj){
   if (boxObj.x < enemyobj.x + enemyobj.width &&
    boxObj.x + boxObj.width > enemyobj.x &&
@@ -430,15 +508,19 @@ const collision = function(boxObj, enemyobj){
   }
 }
 
-///////////////////////////////// Enemy 1
-
-enemy1Obj = {
-  x: 100,
-  y: 0,
-  height: 40,
-  width: 40,
-  life: 0
+const laserCollision = function(laser, enemyobj){
+  if (laserObj.x < enemyobj.x + enemyobj.width &&
+   laserObj.x + laserObj.width > enemyobj.x &&
+   laserObj.y < enemyobj.y + enemyobj.height &&
+   laserObj.height + laserObj.y > enemyobj.y) {
+    console.log(`box X is ${laserObj.x} box Y is ${laserObj.y}`)
+    console.log(`enemy1 X is ${enemyobj.x} enemy1 Y is ${enemyobj.y}`)
+    enemyobj.who.remove();
+    enemyobj.who.style.backgroundColor = 'white';
+  }
 }
+
+///////////////////////////////// Enemy 1 ///////////////////////////////
 
 
 const createEnemy1 = function(){
@@ -467,13 +549,7 @@ const moveenemy1 = function(){
 }
 
 /////////////////////// Enemy 2
-enemy2Obj = {
-  x: 200,
-  y: 0,
-  height: 40,
-  width: 40,
-  life: 0
-}
+
 let enemy2Life = 0
 const createEnemy2 = function(){
   enemy2Obj.life = 1;
@@ -504,13 +580,6 @@ const moveEnemy2 = function(){
 
 ///////////////////////////// Enemy 3
 
-enemy3Obj = {
-  x: 250,
-  y: 0,
-  height: 40,
-  width: 40,
-  life: 0
-}
 
 const createEnemy3 = function(){
   enemy3Obj.life = 1
@@ -540,14 +609,6 @@ const moveEnemy3 = function(){
 ///////////////////////////////////////// Enemy 4
 
 
-enemy4Obj = {
-  x: 300,
-  y: 0,
-  height: 40,
-  width: 40,
-  life: 0
-}
-
 const createEnemy4 = function(){
   enemy4Obj.life = 1
   enemy4 = document.createElement('div');
@@ -576,13 +637,6 @@ const moveEnemy4 = function(){
 
 //////////////////////////////////////////// Enemy 5
 
-enemy5Obj = {
-  x: 350,
-  y: 0,
-  height: 40,
-  width: 40,
-  life: 0
-}
 
 const createEnemy5 = function(){
   enemy5Obj.life = 1
@@ -611,13 +665,6 @@ const moveEnemy5 = function(){
 
 ////////////////////////////////////////////////// Enemy 6
 
-enemy6Obj = {
-  x: 400,
-  y: 0,
-  height: 40,
-  width: 40,
-  life: 0
-}
 
 const createEnemy6 = function(){
   enemy6Obj.life = 1
@@ -647,14 +694,6 @@ const moveEnemy6 = function(){
 
 ////////////////////////////////////////////////////// Enemy 7
 
-enemy7Obj = {
-  x: 470,
-  y: 0,
-  height: 70,
-  width: 30,
-  life: 0
-}
-
 const createEnemy7 = function(){
   enemy7Obj.life = 1
   enemy7 = document.createElement('div');
@@ -683,14 +722,6 @@ const moveEnemy7 = function(){
 ////////////////////////////////////////////////////// Enemy 8
 
 
-enemy8Obj = {
-  x: 540,
-  y: 0,
-  height: 50,
-  width: 60,
-  life: 0
-}
-
 const createEnemy8 = function(){
   enemy8Obj.life = 1
   enemy8 = document.createElement('div');
@@ -715,6 +746,7 @@ const moveEnemy8 = function(){
     }
   },50)
 }
+
 
 const callEnemies = function(){
   let callingEnemies = setInterval(function(){
