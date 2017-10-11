@@ -9,6 +9,7 @@ let laser = document.querySelector('.laser');
 let lives = document.querySelector('.livesContainer')
 let points = document.querySelector('.points');
 let box = document.createElement('div');
+let winPoints = document.querySelector('.winPoints')
 
 
 
@@ -17,8 +18,9 @@ spaceHolder.appendChild(box);
 box.style.left = '325px';
 box.style.top = '500px';
 
-const itemXSpawn = [105, 165, 230, 325, 405, 385, 525, 585, 265];
+const itemXSpawn = [165, 230, 325, 405, 385, 525, 585, 265];
 let scorePoints = 0;
+let winScore = 0
 
 let boundaries = function(obj){
   if (obj.x < 52){
@@ -127,7 +129,8 @@ let healthPackObj = {
   y: 0,
   height: 30,
   width: 30,
-  id: 'hp' //used in collisions
+  id: 'hp', //used in collisions
+  exists: false
 }
 
 let pointItem1Obj = {
@@ -135,30 +138,19 @@ let pointItem1Obj = {
   y: 0,
   height: 30,
   width: 30,
-  id: 'points'
+  id: 'points',
+  exists: false
 }
 
-
-let pointItem2Obj = {
-  x: 100,
-  y: 0,
-  height: 30,
-  width: 30
-}
 
 let winObj = {
   x: 200,
   y: 0,
   height: 30,
   width: 30,
-  id: 'win'
+  id: 'win',
+  exists: false
 }
-
-
-
-
-
-
 
 
 //////////////////////////////////////// Laser /////////////////////////////////////
@@ -274,23 +266,28 @@ const itemCollision = function(boxObj, item){
    boxObj.x + boxObj.width > item.x &&
    boxObj.y < item.y + item.height &&
    boxObj.height + boxObj.y > item.y){
+    item.exists = false;
     item.who.remove();
-    if(item.who === 'points'){
+    item.y = 0;
+    if(item.id === 'points'){
       scorePoints += 5000;
       points.innerHTML = scorePoints;
     }
-    else if (item.who === 'hp'){
-      for(let i = 0; lives.childNodes.length < 23; i++){
+    else if (item.id === 'hp'){
+      for(let i = 0; lives.childNodes.length < 39; i++){
         playerLives = document.createElement('div');
         playerLives.setAttribute('class', 'playerLives')
         lives.appendChild(playerLives);
       }
-
     }
-
-  console.log('You got item!')
+    else if (item.id === 'win'){
+      winScore++;
+      winPoints.innerHTML = winScore;
+    }
   }
+  console.log('You got item!')
 }
+
 
 
 
@@ -299,12 +296,12 @@ const itemCollision = function(boxObj, item){
 
 
 const makeHealthPack = function(){
-  //healthPackObj.exists = true;
+  healthPackObj.exists = true;
   healthPack = document.createElement('div');
   healthPack.setAttribute('class', 'healthPack');
   spaceHolder.appendChild(healthPack);
   healthPackObj.who = healthPack;
-  healthPackObj.x = itemXSpawn[Math.floor((Math.random() * 9) + 1)]
+  healthPackObj.x = itemXSpawn[Math.floor((Math.random() * 8) + 1)]
   healthPack.style.left = healthPackObj.x + 'px'
   healthPack.style.top = healthPackObj.y + 'px';
   moveHealthPack();
@@ -314,16 +311,22 @@ const moveHealthPack = function(){
     healthPackObj.y += 3;
     healthPack.style.top = healthPackObj.y + 'px';
     itemCollision(boxObj, healthPackObj)
+    if (healthPackObj.y > 600){
+      healthPackObj.exists = false;
+      healthPack.remove();
+      clearInterval(moveHealthPack);
+      healthPackObj.y = 0;
+    }
   }, 50)
 }
 
 const makeWinItem = function(){
-  //healthPackObj.exists = true;
+  winObj.exists = true;
   winItem = document.createElement('div');
   winItem.setAttribute('class', 'winItem');
   spaceHolder.appendChild(winItem);
   winObj.who = winItem;
-  winObj.x = itemXSpawn[Math.floor((Math.random() * 9) + 1)]
+  winObj.x = itemXSpawn[Math.floor((Math.random() * 8) + 1)]
   winItem.style.left = winObj.x + 'px'
   winItem.style.top = winObj.y + 'px';
   moveWinItem();
@@ -334,7 +337,7 @@ const moveWinItem = function(){
     winItem.style.top = winObj.y + 'px';
     itemCollision(boxObj, winObj)
     if (winObj.y > 600){
-      enemy1Obj.life = 0
+      winObj.exists = false;
       winItem.remove();
       clearInterval(moveWinMoveDown);
       winObj.y = 0;
@@ -343,12 +346,12 @@ const moveWinItem = function(){
 }
 
 const makePointItem1 = function(){
-  //healthPackObj.exists = true;
+  pointItem1Obj.exists = true;
   pointItem1 = document.createElement('div');
   pointItem1.setAttribute('class', 'pointItem1');
   spaceHolder.appendChild(pointItem1);
   pointItem1Obj.who = pointItem1;
-  pointItem1Obj.x = itemXSpawn[Math.floor((Math.random() * 9) + 1)];
+  pointItem1Obj.x = itemXSpawn[Math.floor((Math.random() * 8) + 1)];
   pointItem1.style.left = pointItem1Obj.x + 'px'
   pointItem1.style.top = pointItem1Obj.y + 'px';
   movePointItem1();
@@ -359,6 +362,7 @@ const movePointItem1 = function(){
     pointItem1.style.top = pointItem1Obj.y + 'px';
     itemCollision(boxObj, pointItem1Obj)
     if (pointItem1Obj.y > 600){
+      pointItem1Obj.exists = false;
       pointItem1.remove();
       clearInterval(movePointItem1Down);
       pointItem1Obj.y = 0;
@@ -593,14 +597,13 @@ const moveEnemy8 = function(){
 
 
 
-const stopEnemies = function(){
-  clearInterval(callingEnemies);
-};
+
 
 const callEnemies = function(){
   let callingEnemies = setInterval(function(){
-    const stopEnemies = function(){
+    const stopEverything = function(){
       clearInterval(callingEnemies);
+      clearInterval(movingItems)
     };
     const num = Math.floor((Math.random() * 8) + 1);
     if (num === 1 && enemy1Obj.life === 0){
@@ -630,26 +633,38 @@ const callEnemies = function(){
     stop.addEventListener('click', stopEnemies);
   }, 500)
 };
-/*
+
 const moveItems = function(){
   let movingItems = setInterval(function(){
-    const stopEnemies = function(){
+  const stopEverything = function(){
       clearInterval(callingEnemies);
+      clearInterval(movingItems)
+    };
+    const nums = Math.floor((Math.random() * 5) + 1);
+    if (nums === 1 && winObj.exists === false){
+      makeWinItem();
     }
-
-  }
-
-
-
-
-
+    else if ((nums === 2 || 3) && healthPackObj.exists === false){
+      makeHealthPack();
+    }
+    else if ((nums === 4 || 5) && pointItem1Obj.exists === false){
+      makePointItem1();
+    }
+  }, 1000)
 }
 
-*/
+const runGame = function(){
+  callEnemies();
+  moveItems();
+}
+
+
+
+
 //const num = Math.floor((Math.random() * 4) + 1);
 //if (num === 1 && healthPackExists === false)
 
-start.addEventListener('click', makeHealthPack);
+start.addEventListener('click', callEnemies);
 
 
 

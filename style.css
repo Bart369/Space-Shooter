@@ -56,7 +56,6 @@ body{
   font-weight: bold;
   margin: 0 0 10px 0;
   color: lightblue;
-
 }
 
 .livesContainer {
@@ -75,7 +74,12 @@ body{
   padding: 0
 }
 
-
+.stopAndGo{
+  position: absolute;
+  top: 300px;
+  left: 100px;
+  font-size: 30px;
+}
 
 .start {
   color: white;
@@ -83,44 +87,15 @@ body{
 .stop {
   color: white;
 }
-/*
-.enemy1{
-  height: 25px;
-  width: 25px;
-  background-color: lightgreen;
+
+.win{
+  color: white;
   display: inline-block;
   position: absolute;
-  left: 0;
-  top: 0;
+  font-size: 30px;
+  top: 200px;
+  left: 100px;
 }
-.enemyMini{
-  height: 25px;
-  width: 25px;
-  background-color: #66ffff;
-  display: inline-block;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.enemy2{
-  height: 40px;
-  width: 40px;
-  background-color: #cc66ff;
-  display: inline-block;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.enemy3{
-  height: 60px;
-  width: 60px;
-  background-color: orange;
-  display: inline-block;
-  position: relative;
-  left: 50px;
-  top: 0;
-}
-*/
 
 .laser{
   height: 30px;
