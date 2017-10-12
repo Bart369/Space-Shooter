@@ -331,7 +331,7 @@ const moveWinItem = function(){
         winObj.who.remove();
         winObj.y = 100;
         clearInterval(moveWinMoveDown);
-        if (winScore === 10){
+        if (winScore === 5){
             alert(`You Win! Your score was ${scorePoints}!`);
             location.reload();
         }
