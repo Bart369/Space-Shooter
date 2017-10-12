@@ -83,9 +83,24 @@ body{
 
 .start {
   color: white;
+  background-color: green;
+  border: solid white;
+  margin-right: 25px;
 }
 .stop {
   color: white;
+  background-color: red;
+  border: solid white;
+}
+
+.start:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.stop:hover {
+  cursor: pointer;
+  color: black;
 }
 
 .win{
@@ -95,6 +110,10 @@ body{
   font-size: 30px;
   top: 200px;
   left: 100px;
+}
+
+.win p{
+  color: gold;
 }
 
 .laser{

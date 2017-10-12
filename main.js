@@ -238,6 +238,7 @@ const collision = function(boxObj, enemyobj){
     enemyobj.who.remove();
     if (lives.childNodes.length === 0){
       alert('YOU LOSE!!')
+      location.reload();
     }
     else {
       lives.removeChild(lives.childNodes[0]);
@@ -270,7 +271,7 @@ const makeHealthPack = function(){
   healthPack.setAttribute('class', 'healthPack');
   spaceHolder.appendChild(healthPack);
   healthPackObj.who = healthPack;
-  healthPackObj.x = itemXSpawn[Math.floor((Math.random() * 8) + 1)]
+  healthPackObj.x = itemXSpawn[Math.floor((Math.random() * 8))]
   healthPack.style.left = healthPackObj.x + 'px'
   healthPack.style.top = healthPackObj.y + 'px';
   moveHealthPack();
@@ -286,6 +287,7 @@ const moveHealthPack = function(){
       healthPackObj.exists = false;
       healthPackObj.who.remove();
       healthPackObj.y = 0;
+      healthPackObj.x = 0
       if (lives.childNodes.length < 40){
         for(let i = 0; lives.childNodes.length < 40; i++){
           playerLives = document.createElement('div');
@@ -300,6 +302,7 @@ const moveHealthPack = function(){
       healthPack.remove();
       clearInterval(healthPackMoveDown);
       healthPackObj.y = 0;
+      healthPackObj.x = 0;
     }
   }, 50)
 }
@@ -311,14 +314,14 @@ const makeWinItem = function(){
   winItem.setAttribute('class', 'winItem');
   spaceHolder.appendChild(winItem);
   winObj.who = winItem;
-  winObj.x = itemXSpawn[Math.floor((Math.random() * 8) + 1)]
+  winObj.x = itemXSpawn[Math.floor((Math.random() * 8))]
   winItem.style.left = winObj.x + 'px'
   winItem.style.top = winObj.y + 'px';
   moveWinItem();
 }
 const moveWinItem = function(){
   let moveWinMoveDown = setInterval(function(){
-    winObj.y += 3;
+    winObj.y += 5;
     winItem.style.top = winObj.y + 'px';
     if (boxObj.x < winObj.x + winObj.width &&
        boxObj.x + boxObj.width > winObj.x &&
@@ -329,9 +332,11 @@ const moveWinItem = function(){
         winPoints.innerHTML = winScore;
         winObj.who.remove();
         winObj.y = 0;
+        winObj.x = 0;
         clearInterval(moveWinMoveDown);
         if (winScore === 10){
-            alert('You Win');
+            alert(`You Win! Your score was ${scorePoints}!`);
+            location.reload();
         }
     }
     if (winObj.y > 600){
@@ -339,6 +344,7 @@ const moveWinItem = function(){
       winItem.remove();
       clearInterval(moveWinMoveDown);
       winObj.y = 0;
+      winObj.x = 0;
     }
   }, 50)
 }
@@ -349,14 +355,14 @@ const makePointItem1 = function(){
   pointItem1.setAttribute('class', 'pointItem1');
   spaceHolder.appendChild(pointItem1);
   pointItem1Obj.who = pointItem1;
-  pointItem1Obj.x = itemXSpawn[Math.floor((Math.random() * 8) + 1)];
+  pointItem1Obj.x = itemXSpawn[Math.floor((Math.random() * 8))]
   pointItem1.style.left = pointItem1Obj.x + 'px'
   pointItem1.style.top = pointItem1Obj.y + 'px';
   movePointItem1();
 }
 const movePointItem1 = function(){
   let movePointItem1Down = setInterval(function(){
-    pointItem1Obj.y += 3;
+    pointItem1Obj.y += 6;
     pointItem1.style.top = pointItem1Obj.y + 'px';
     if (boxObj.x < pointItem1Obj.x + pointItem1Obj.width &&
      boxObj.x + boxObj.width > pointItem1Obj.x &&
@@ -365,6 +371,7 @@ const movePointItem1 = function(){
       pointItem1Obj.exists = false;
       pointItem1Obj.who.remove();
       pointItem1Obj.y = 0;
+      pointItem1Obj.x = 0;
       clearInterval(movePointItem1Down);
       scorePoints += 15000;
       points.innerHTML = scorePoints;
@@ -374,6 +381,7 @@ const movePointItem1 = function(){
       pointItem1.remove();
       clearInterval(movePointItem1Down);
       pointItem1Obj.y = 0;
+      pointItem1Obj.x = 0;
     }
   }, 50)
 }
@@ -611,7 +619,6 @@ const callEnemies = function(){
   let callingEnemies = setInterval(function(){
     const stopEverything = function(){
       clearInterval(callingEnemies);
-      clearInterval(movingItems)
     };
     const num = Math.floor((Math.random() * 8) + 1);
     if (num === 1 && enemy1Obj.life === 0){
@@ -646,7 +653,6 @@ const moveItems = function(){
   let movingItems = setInterval(function(){
   const stopEverything = function(){
       clearInterval(callingEnemies);
-      clearInterval(movingItems)
     };
     const nums = Math.floor((Math.random() * 5) + 1);
     if (nums === 1 && winObj.exists === false){
@@ -666,19 +672,6 @@ const runGame = function(){
   moveItems();
 }
 
-
-if (winScore === 5){
-  alert('You Win');
-}
-
-
-
-
-//location reload
-
-
-//const num = Math.floor((Math.random() * 4) + 1);
-//if (num === 1 && healthPackExists === false)
 
 start.addEventListener('click', runGame);
 
