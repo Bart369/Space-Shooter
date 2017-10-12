@@ -54,7 +54,7 @@ let boxObj = {
 let enemy1Obj = {
   num: 1,
   x: 100,
-  y: 0,
+  y: 100,
   height: 40,
   width: 40,
   life: 0
@@ -64,7 +64,7 @@ let enemy1Obj = {
 let enemy2Obj = {
   num: 2,
   x: 200,
-  y: 0,
+  y: 100,
   height: 40,
   width: 40,
   life: 0
@@ -73,7 +73,7 @@ let enemy2Obj = {
 let enemy3Obj = {
   num: 3,
   x: 250,
-  y: 0,
+  y: 100,
   height: 50,
   width: 50,
   life: 0
@@ -82,7 +82,7 @@ let enemy3Obj = {
 let enemy4Obj = {
   num: 4,
   x: 300,
-  y: 0,
+  y: 100,
   height: 50,
   width: 30,
   life: 0
@@ -91,7 +91,7 @@ let enemy4Obj = {
 let enemy5Obj = {
   num: 5,
   x: 350,
-  y: 0,
+  y: 100,
   height: 40,
   width: 40,
   life: 0
@@ -100,7 +100,7 @@ let enemy5Obj = {
 let enemy6Obj = {
   num: 6,
   x: 400,
-  y: 0,
+  y: 100,
   height: 40,
   width: 40,
   life: 0
@@ -109,7 +109,7 @@ let enemy6Obj = {
 let enemy7Obj = {
   num: 7,
   x: 470,
-  y: 0,
+  y: 100,
   height: 60,
   width: 60,
   life: 0
@@ -118,7 +118,7 @@ let enemy7Obj = {
 let enemy8Obj = {
   num: 8,
   x: 540,
-  y: 0,
+  y: 100,
   height: 50,
   width: 60,
   life: 0
@@ -126,7 +126,7 @@ let enemy8Obj = {
 
 let healthPackObj = {
   x: 0,
-  y: 0,
+  y: 100,
   height: 30,
   width: 30,
   id: 'hp', //used in collisions
@@ -135,7 +135,7 @@ let healthPackObj = {
 
 let pointItem1Obj = {
   x: 0,
-  y: 0,
+  y: 100,
   height: 30,
   width: 30,
   id: 'points',
@@ -145,7 +145,7 @@ let pointItem1Obj = {
 
 let winObj = {
   x: 0,
-  y: 0,
+  y: 100,
   height: 30,
   width: 30,
   id: 'win',
@@ -286,8 +286,7 @@ const moveHealthPack = function(){
      boxObj.height + boxObj.y > healthPackObj.y){
       healthPackObj.exists = false;
       healthPackObj.who.remove();
-      healthPackObj.y = 0;
-      healthPackObj.x = 0
+      healthPackObj.y = 100;
       if (lives.childNodes.length < 40){
         for(let i = 0; lives.childNodes.length < 40; i++){
           playerLives = document.createElement('div');
@@ -301,8 +300,7 @@ const moveHealthPack = function(){
       healthPackObj.exists = false;
       healthPack.remove();
       clearInterval(healthPackMoveDown);
-      healthPackObj.y = 0;
-      healthPackObj.x = 0;
+      healthPackObj.y = 100;
     }
   }, 50)
 }
@@ -331,8 +329,7 @@ const moveWinItem = function(){
         winScore++;
         winPoints.innerHTML = winScore;
         winObj.who.remove();
-        winObj.y = 0;
-        winObj.x = 0;
+        winObj.y = 100;
         clearInterval(moveWinMoveDown);
         if (winScore === 10){
             alert(`You Win! Your score was ${scorePoints}!`);
@@ -343,8 +340,7 @@ const moveWinItem = function(){
       winObj.exists = false;
       winItem.remove();
       clearInterval(moveWinMoveDown);
-      winObj.y = 0;
-      winObj.x = 0;
+      winObj.y = 100;
     }
   }, 50)
 }
@@ -370,8 +366,7 @@ const movePointItem1 = function(){
      boxObj.height + boxObj.y > pointItem1Obj.y){
       pointItem1Obj.exists = false;
       pointItem1Obj.who.remove();
-      pointItem1Obj.y = 0;
-      pointItem1Obj.x = 0;
+      pointItem1Obj.y = 100;
       clearInterval(movePointItem1Down);
       scorePoints += 15000;
       points.innerHTML = scorePoints;
@@ -380,8 +375,7 @@ const movePointItem1 = function(){
       pointItem1Obj.exists = false;
       pointItem1.remove();
       clearInterval(movePointItem1Down);
-      pointItem1Obj.y = 0;
-      pointItem1Obj.x = 0;
+      pointItem1Obj.y = 100;
     }
   }, 50)
 }
@@ -407,7 +401,7 @@ const moveenemy1 = function(){
       enemy1Obj.life = 0
       enemy1.remove();
       clearInterval(moveEnemy1Down);
-      enemy1Obj.y = 0;
+      enemy1Obj.y = 100;
     }
   },50)
 }
@@ -436,7 +430,7 @@ const moveEnemy2 = function(){
       enemy2Obj.life = 0;
       enemy2.remove();
       clearInterval(moveEnemy2Down);
-      enemy2Obj.y = 0;
+      enemy2Obj.y = 100;
     }
   },50)
 }
@@ -465,7 +459,7 @@ const moveEnemy3 = function(){
       enemy3Obj.life = 0
       enemy3.remove();
       clearInterval(moveEnemy3Down);
-      enemy3Obj.y = 0;
+      enemy3Obj.y = 100;
     }
   },50)
 }
@@ -493,7 +487,7 @@ const moveEnemy4 = function(){
       enemy4Obj.life = 0
       enemy4.remove();
       clearInterval(moveEnemy4Down);
-      enemy4Obj.y = 0;
+      enemy4Obj.y = 100;
     }
   },50)
 }
@@ -522,7 +516,7 @@ const moveEnemy5 = function(){
       enemy5Obj.life = 0
       enemy5.remove();
       clearInterval(moveEnemy5Down);
-      enemy5Obj.y = 0;
+      enemy5Obj.y = 100;
     }
   },50)
 }
@@ -550,7 +544,7 @@ const moveEnemy6 = function(){
       enemy6Obj.life = 0
       enemy6.remove();
       clearInterval(moveEnemy6Down);
-      enemy6Obj.y = 0;
+      enemy6Obj.y = 100;
     }
   },50)
 }
@@ -578,7 +572,7 @@ const moveEnemy7 = function(){
       enemy7Obj.life = 0
       enemy7.remove();
       clearInterval(moveEnemy7Down);
-      enemy7Obj.y = 0;
+      enemy7Obj.y = 100;
     }
   },50)
 }
@@ -606,7 +600,7 @@ const moveEnemy8 = function(){
       enemy8Obj.life = 0;
       enemy8.remove();
       clearInterval(moveEnemy8Down);
-      enemy8Obj.y = 0;
+      enemy8Obj.y = 100;
     }
   },50)
 }
