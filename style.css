@@ -117,7 +117,8 @@ body{
 .enemy1{
   height: 40px;
   width: 40px;
-  background-color: #cc66ff;
+  background-image: url('3.png');
+  background-size: cover;
   display: inline-block;
   position: absolute;
   left: 0;
@@ -127,7 +128,8 @@ body{
 .enemy2{
   height: 40px;
   width: 40px;
-  background-color: #33cccc;
+  background-image: url('11.png');
+  background-size: cover;
   display: inline-block;
   position: absolute;
   left: 0;
@@ -135,9 +137,10 @@ body{
 }
 
 .enemy3{
-  height: 40px;
-  width: 40px;
-  background-color: yellow;
+  height: 50px;
+  width: 50px;
+  background-image: url('9.png');
+  background-size: cover;
   display: inline-block;
   position: absolute;
   left: 0;
@@ -145,9 +148,10 @@ body{
 }
 
 .enemy4{
-  height: 40px;
-  width: 40px;
-  background-color: lightgreen;
+  height: 50px;
+  width: 30px;
+  background-image: url('8.png');
+  backgroun-size: cover;
   display: inline-block;
   position: absolute;
   left: 0;
@@ -156,7 +160,8 @@ body{
 .enemy5{
   height: 40px;
   width: 40px;
-  background-color: orange;
+  background-image: url('1.png');
+  background-size: cover;
   display: inline-block;
   position: absolute;
   left: 0;
@@ -165,16 +170,18 @@ body{
 .enemy6{
   height: 40px;
   width: 40px;
-  background-color: #cc0099;
+  background-image: url('13.png');
+  background-size: cover;
   display: inline-block;
   position: absolute;
   left: 0;
   top: 0;
 }
 .enemy7{
-  height: 70px;
-  width: 30px;
-  background-color: #99cc00;
+  height: 60px;
+  width: 60px;
+  background-image: url('7.png');
+  background-size: cover;
   display: inline-block;
   position: absolute;
   left: 0;
@@ -184,17 +191,18 @@ body{
 .enemy8{
   height: 50px;
   width: 60px;
-  background-color: #0066cc;
-  display: inline-block;
+  background-image: url('5.png');
+  background-size: cover;
   position: absolute;
   left: 0;
   top: 0;
 }
 
 .box{
-  height: 40px;
-  width: 40px;
-  background-color: red;
+  height: 50px;
+  width: 50px;
+  background-image: url('redfighter0005.png');
+  background-size: cover;
   display: inline-block;
   position: absolute;
   left: 0;
@@ -204,7 +212,8 @@ body{
 .healthPack {
   height: 30px;
   width: 30px;
-  background-color: green;
+  background-image: url('heart.png');
+  background-size: cover;
   display: inline-block;
   position: absolute;
   left: 0;
@@ -214,7 +223,8 @@ body{
 .pointItem1 {
   height: 30px;
   width: 30px;
-  background-color: blue;
+  background-image: url('bluecoin.png');
+  background-size: cover;
   display: inline-block;
   position: absolute;
   left: 0;
@@ -234,7 +244,8 @@ body{
 .winItem{
   height: 30px;
   width: 30px;
-  background-color: gold;
+  background-image: url('whitecoin.png');
+  background-size: cover;
   display: inline-block;
   position: absolute;
   left: 0;

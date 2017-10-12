@@ -47,8 +47,8 @@ let boxObj = {
   who: box,
   x: 325,
   y: 500,
-  height: 40,
-  width: 40
+  height: 50,
+  width: 50
 }
 
 let enemy1Obj = {
@@ -74,8 +74,8 @@ let enemy3Obj = {
   num: 3,
   x: 250,
   y: 0,
-  height: 40,
-  width: 40,
+  height: 50,
+  width: 50,
   life: 0
 }
 
@@ -83,8 +83,8 @@ let enemy4Obj = {
   num: 4,
   x: 300,
   y: 0,
-  height: 40,
-  width: 40,
+  height: 50,
+  width: 30,
   life: 0
 }
 
@@ -110,8 +110,8 @@ let enemy7Obj = {
   num: 7,
   x: 470,
   y: 0,
-  height: 70,
-  width: 30,
+  height: 60,
+  width: 60,
   life: 0
 }
 
@@ -125,7 +125,7 @@ let enemy8Obj = {
 }
 
 let healthPackObj = {
-  x: 300,
+  x: 0,
   y: 0,
   height: 30,
   width: 30,
@@ -134,7 +134,7 @@ let healthPackObj = {
 }
 
 let pointItem1Obj = {
-  x: 500,
+  x: 0,
   y: 0,
   height: 30,
   width: 30,
@@ -144,7 +144,7 @@ let pointItem1Obj = {
 
 
 let winObj = {
-  x: 200,
+  x: 0,
   y: 0,
   height: 30,
   width: 30,
@@ -235,14 +235,11 @@ const collision = function(boxObj, enemyobj){
    boxObj.x + boxObj.width > enemyobj.x &&
    boxObj.y < enemyobj.y + enemyobj.height &&
    boxObj.height + boxObj.y > enemyobj.y) {
-    console.log(`box X is ${boxObj.x} box Y is ${boxObj.y}`)
-    console.log(`Hit by ${enemyobj.num} X is ${enemyobj.x} ${enemyobj.num} Y is ${enemyobj.y}`)
     enemyobj.who.remove();
     if (lives.childNodes.length === 0){
-      //alert('YOU LOSE!!');
+      alert('YOU LOSE!!')
     }
     else {
-      console.log('You were hit!!')
       lives.removeChild(lives.childNodes[0]);
     }
   }
@@ -260,48 +257,6 @@ const laserCollision = function(laser, enemyobj){
     enemyobj.who.style.backgroundColor = 'green';
   }
 }
-
-
-const itemCollision = function(boxObj, item){
-  if (boxObj.x < item.x + item.width &&
-   boxObj.x + boxObj.width > item.x &&
-   boxObj.y < item.y + item.height &&
-   boxObj.height + boxObj.y > item.y){
-    item.exists = false;
-    item.who.remove();
-    item.y = 0;
-    if(item.id === 'points'){
-      scorePoints += 15000;
-      points.innerHTML = scorePoints;
-    }
-    else if (item.id === 'hp'){
-      for(let i = 0; lives.childNodes.length < 39; i++){
-        playerLives = document.createElement('div');
-        playerLives.setAttribute('class', 'playerLives')
-        lives.appendChild(playerLives);
-        clearHealth++;
-      }
-    }
-    else if (item.id === 'win'){
-      clearWin++;
-
-    }
-    console.log('You got item!')
-  }
-
-}
-
-
-
-  if (boxObj.x < pointItem1Obj.x + pointItem1Obj.width &&
-   boxObj.x + boxObj.width > pointItem1Obj.x &&
-   boxObj.y < pointItem1Obj.y + pointItem1Obj.height &&
-   boxObj.height + boxObj.y > pointItem1Obj.y){
-    pointItem1Obj.exists = false;
-    pointItem1Obj.who.remove();
-    pointItem1Obj.y = 0;
-    clearInterval(movePointItem1Down);
-  }
 
 
 
@@ -331,11 +286,12 @@ const moveHealthPack = function(){
       healthPackObj.exists = false;
       healthPackObj.who.remove();
       healthPackObj.y = 0;
-      for(let i = 0; lives.childNodes.length < 39; i++){
-        playerLives = document.createElement('div');
-        playerLives.setAttribute('class', 'playerLives')
-        lives.appendChild(playerLives);
-        clearHealth++;
+      if (lives.childNodes.length < 40){
+        for(let i = 0; lives.childNodes.length < 40; i++){
+          playerLives = document.createElement('div');
+          playerLives.setAttribute('class', 'playerLives')
+          lives.appendChild(playerLives);
+        }
       }
       clearInterval(healthPackMoveDown);
     }
@@ -374,6 +330,9 @@ const moveWinItem = function(){
         winObj.who.remove();
         winObj.y = 0;
         clearInterval(moveWinMoveDown);
+        if (winScore === 10){
+            alert('You Win');
+        }
     }
     if (winObj.y > 600){
       winObj.exists = false;
@@ -433,7 +392,7 @@ const createEnemy1 = function(){
 
 const moveenemy1 = function(){
   let moveEnemy1Down = setInterval(function(){
-    enemy1Obj.y += 4;
+    enemy1Obj.y += 5;
     enemy1.style.top = enemy1Obj.y + 'px';
     collision(boxObj,enemy1Obj);
     if (enemy1Obj.y > 600){
@@ -462,7 +421,7 @@ const createEnemy2 = function(){
 
 const moveEnemy2 = function(){
   let moveEnemy2Down = setInterval(function(){
-    enemy2Obj.y += 5;
+    enemy2Obj.y += 6;
     enemy2.style.top = enemy2Obj.y + 'px';
     collision(boxObj,enemy2Obj);
     if (enemy2Obj.y > 600){
@@ -491,7 +450,7 @@ const createEnemy3 = function(){
 
 const moveEnemy3 = function(){
   let moveEnemy3Down = setInterval(function(){
-    enemy3Obj.y += 6;
+    enemy3Obj.y += 7;
     enemy3.style.top = enemy3Obj.y + 'px';
     collision(boxObj,enemy3Obj);
     if (enemy3Obj.y > 600){
@@ -604,7 +563,7 @@ const createEnemy7 = function(){
 
 const moveEnemy7 = function(){
   let moveEnemy7Down = setInterval(function(){
-    enemy7Obj.y += 5;
+    enemy7Obj.y += 6;
     enemy7.style.top = enemy7Obj.y + 'px';
     collision(boxObj,enemy7Obj);
     if (enemy7Obj.y > 600){
@@ -632,7 +591,7 @@ const createEnemy8 = function(){
 
 const moveEnemy8 = function(){
   let moveEnemy8Down = setInterval(function(){
-    enemy8Obj.y += 4;
+    enemy8Obj.y += 5;
     enemy8.style.top = enemy8Obj.y + 'px';
     collision(boxObj,enemy8Obj);
     if (enemy8Obj.y > 600){
@@ -708,12 +667,20 @@ const runGame = function(){
 }
 
 
+if (winScore === 5){
+  alert('You Win');
+}
+
+
+
+
+//location reload
 
 
 //const num = Math.floor((Math.random() * 4) + 1);
 //if (num === 1 && healthPackExists === false)
 
-start.addEventListener('click', moveItems);
+start.addEventListener('click', runGame);
 
 
 
