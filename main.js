@@ -18,7 +18,7 @@ spaceHolder.appendChild(box);
 box.style.left = '325px';
 box.style.top = '500px';
 
-const itemXSpawn = [165, 230, 325, 405, 385, 525, 585, 265];
+const itemXSpawn = [230, 260, 325, 405, 385, 525, 585, 265];
 let scorePoints = 0;
 let winScore = 0
 
@@ -261,6 +261,7 @@ const laserCollision = function(laser, enemyobj){
   }
 }
 
+
 const itemCollision = function(boxObj, item){
   if (boxObj.x < item.x + item.width &&
    boxObj.x + boxObj.width > item.x &&
@@ -270,7 +271,7 @@ const itemCollision = function(boxObj, item){
     item.who.remove();
     item.y = 0;
     if(item.id === 'points'){
-      scorePoints += 5000;
+      scorePoints += 15000;
       points.innerHTML = scorePoints;
     }
     else if (item.id === 'hp'){
@@ -278,21 +279,34 @@ const itemCollision = function(boxObj, item){
         playerLives = document.createElement('div');
         playerLives.setAttribute('class', 'playerLives')
         lives.appendChild(playerLives);
+        clearHealth++;
       }
     }
     else if (item.id === 'win'){
-      winScore++;
-      winPoints.innerHTML = winScore;
+      clearWin++;
+
     }
+    console.log('You got item!')
   }
-  console.log('You got item!')
+
 }
 
 
 
+  if (boxObj.x < pointItem1Obj.x + pointItem1Obj.width &&
+   boxObj.x + boxObj.width > pointItem1Obj.x &&
+   boxObj.y < pointItem1Obj.y + pointItem1Obj.height &&
+   boxObj.height + boxObj.y > pointItem1Obj.y){
+    pointItem1Obj.exists = false;
+    pointItem1Obj.who.remove();
+    pointItem1Obj.y = 0;
+    clearInterval(movePointItem1Down);
+  }
 
 
-///////////////////////////////// Enemy 1 ///////////////////////////////
+
+////////////////////////////////////////// Items ///////////////////////////
+
 
 
 const makeHealthPack = function(){
@@ -307,20 +321,35 @@ const makeHealthPack = function(){
   moveHealthPack();
 }
 const moveHealthPack = function(){
-  let healthPackMoveDown = setInterval(function(){
+    healthPackMoveDown = setInterval(function(){
     healthPackObj.y += 3;
     healthPack.style.top = healthPackObj.y + 'px';
-    itemCollision(boxObj, healthPackObj)
+    if (boxObj.x < healthPackObj.x + healthPackObj.width &&
+     boxObj.x + boxObj.width > healthPackObj.x &&
+     boxObj.y < healthPackObj.y + healthPackObj.height &&
+     boxObj.height + boxObj.y > healthPackObj.y){
+      healthPackObj.exists = false;
+      healthPackObj.who.remove();
+      healthPackObj.y = 0;
+      for(let i = 0; lives.childNodes.length < 39; i++){
+        playerLives = document.createElement('div');
+        playerLives.setAttribute('class', 'playerLives')
+        lives.appendChild(playerLives);
+        clearHealth++;
+      }
+      clearInterval(healthPackMoveDown);
+    }
     if (healthPackObj.y > 600){
       healthPackObj.exists = false;
       healthPack.remove();
-      clearInterval(moveHealthPack);
+      clearInterval(healthPackMoveDown);
       healthPackObj.y = 0;
     }
   }, 50)
 }
 
 const makeWinItem = function(){
+
   winObj.exists = true;
   winItem = document.createElement('div');
   winItem.setAttribute('class', 'winItem');
@@ -335,7 +364,17 @@ const moveWinItem = function(){
   let moveWinMoveDown = setInterval(function(){
     winObj.y += 3;
     winItem.style.top = winObj.y + 'px';
-    itemCollision(boxObj, winObj)
+    if (boxObj.x < winObj.x + winObj.width &&
+       boxObj.x + boxObj.width > winObj.x &&
+       boxObj.y < winObj.y + winObj.height &&
+       boxObj.height + boxObj.y > winObj.y){
+        winObj.exists = false;
+        winScore++;
+        winPoints.innerHTML = winScore;
+        winObj.who.remove();
+        winObj.y = 0;
+        clearInterval(moveWinMoveDown);
+    }
     if (winObj.y > 600){
       winObj.exists = false;
       winItem.remove();
@@ -360,7 +399,17 @@ const movePointItem1 = function(){
   let movePointItem1Down = setInterval(function(){
     pointItem1Obj.y += 3;
     pointItem1.style.top = pointItem1Obj.y + 'px';
-    itemCollision(boxObj, pointItem1Obj)
+    if (boxObj.x < pointItem1Obj.x + pointItem1Obj.width &&
+     boxObj.x + boxObj.width > pointItem1Obj.x &&
+     boxObj.y < pointItem1Obj.y + pointItem1Obj.height &&
+     boxObj.height + boxObj.y > pointItem1Obj.y){
+      pointItem1Obj.exists = false;
+      pointItem1Obj.who.remove();
+      pointItem1Obj.y = 0;
+      clearInterval(movePointItem1Down);
+      scorePoints += 15000;
+      points.innerHTML = scorePoints;
+    }
     if (pointItem1Obj.y > 600){
       pointItem1Obj.exists = false;
       pointItem1.remove();
@@ -369,7 +418,7 @@ const movePointItem1 = function(){
     }
   }, 50)
 }
-
+///////////////////////////////// Enemy 1 ///////////////////////////////
 
 const createEnemy1 = function(){
   enemy1Obj.life = 1
@@ -630,7 +679,7 @@ const callEnemies = function(){
     else if (num === 8 && enemy8Obj.life === 0){
       createEnemy8();
     }
-    stop.addEventListener('click', stopEnemies);
+    stop.addEventListener('click', stopEverything);
   }, 500)
 };
 
@@ -664,7 +713,7 @@ const runGame = function(){
 //const num = Math.floor((Math.random() * 4) + 1);
 //if (num === 1 && healthPackExists === false)
 
-start.addEventListener('click', callEnemies);
+start.addEventListener('click', moveItems);
 
 
 
