@@ -237,7 +237,6 @@ const collision = function(boxObj, enemyobj){
    boxObj.height + boxObj.y > enemyobj.y) {
     enemyobj.who.remove();
     if (lives.childNodes.length === 0){
-      alert('YOU LOSE!!')
       location.reload();
     }
     else {

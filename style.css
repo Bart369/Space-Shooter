@@ -1,6 +1,11 @@
 body{
   background-color: black;
 }
+
+p{
+  font-family: 'Passion One', cursive;
+  letter-spacing: 2px;
+}
 .container {
   height: 750px;
   width: 700px;
@@ -32,7 +37,7 @@ body{
  padding: 0;
  font-weight: bold;
  color: lightblue;
- font-size: 20px;
+ font-size: 30px;
 }
 
 .livesP {
@@ -53,9 +58,10 @@ body{
 
 .p1 {
   padding: 0;
-  font-weight: bold;
+  /* font-weight: bold; */
   margin: 0 0 10px 0;
   color: lightblue;
+  font-size: 30px
 }
 
 .livesContainer {
@@ -86,11 +92,15 @@ body{
   background-color: green;
   border: solid white;
   margin-right: 25px;
+  padding: 5px;
+  border-radius: 15px;
 }
 .stop {
   color: white;
   background-color: red;
   border: solid white;
+  padding: 5px;
+  border-radius: 15px;
 }
 
 .start:hover {
